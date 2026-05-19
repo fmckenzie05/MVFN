@@ -34,6 +34,16 @@ export default function AuthPage({ lang, setLang, onLogin }) {
     });
   }
 
+  function handleGuestLogin() {
+    onLogin({
+      name: 'Guest User',
+      handle: 'guest',
+      avatar: '👋',
+      lang,
+      provider: 'guest',
+    });
+  }
+
   function handleEmailLogin(e) {
     e.preventDefault();
     setError('');
@@ -90,6 +100,13 @@ export default function AuthPage({ lang, setLang, onLogin }) {
               onClick={() => { setView('signup'); setError(''); }}
             >
               {T('auth_email_btn')}
+            </button>
+
+            <button
+              className="auth-guest-btn"
+              onClick={handleGuestLogin}
+            >
+              Continue as guest
             </button>
 
             <p className="auth-switch">
