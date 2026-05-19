@@ -1,11 +1,13 @@
 import { chapters } from '../data/chapters';
 import { mockPosts, mockUsers } from '../data/mockData';
+import { makeT } from '../i18n/index';
 
 const RED   = '#CC0000';
 const GOLD  = '#FFD100';
 const GREEN = '#009B3A';
 
-export default function Dashboard({ completedLessons, setPage, setCurrentChapter }) {
+export default function Dashboard({ completedLessons, setPage, setCurrentChapter, lang = 'en' }) {
+  const T = makeT(lang);
   const pct = Math.round((completedLessons.size / chapters.length) * 100);
   const nextLesson = chapters.find(c => !completedLessons.has(c.id)) || chapters[0];
   const recentPosts = mockPosts.slice(0, 3);
@@ -39,15 +41,15 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
 
           <p className="dash-hero-tagline">
             <span style={{ color: GREEN }}>■</span>
-            &nbsp;"Moral is the Leader"&nbsp;
+            &nbsp;{T('dash_tagline')}&nbsp;
             <span style={{ color: RED }}>■</span>
           </p>
 
           <p className="dash-hero-sub">
-            A teaching platform for moral growth, oneness, and community.
+            {T('dash_sub')}{' '}
             {chapters.length - completedLessons.size > 0
-              ? ` ${chapters.length - completedLessons.size} lessons remaining on your journey.`
-              : ' You have completed all 20 lessons!'}
+              ? T('dash_remaining', chapters.length - completedLessons.size)
+              : T('dash_all_done')}
           </p>
 
           {/* CTA buttons */}
@@ -57,14 +59,14 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
               onClick={() => goLesson(nextLesson)}
               style={{ background: GREEN }}
             >
-              📖 Continue Learning
+              {T('dash_btn_learn')}
             </button>
             <button
               className="dash-hero-btn-secondary"
               onClick={() => setPage('community')}
               style={{ borderColor: GOLD, color: GOLD }}
             >
-              💬 Community Feed
+              {T('dash_btn_community')}
             </button>
           </div>
         </div>
@@ -84,15 +86,15 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
         <div className="dash-grid" style={{ marginBottom: '2.25rem' }}>
           <div className="dash-stat-card" style={{ borderTop: `4px solid ${GREEN}` }}>
             <div className="ds-number" style={{ color: GREEN }}>{completedLessons.size}</div>
-            <div className="ds-label">Lessons Completed</div>
+            <div className="ds-label">{T('dash_lessons_done')}</div>
           </div>
           <div className="dash-stat-card" style={{ borderTop: `4px solid ${GOLD}` }}>
             <div className="ds-number" style={{ color: '#b89000' }}>{pct}%</div>
-            <div className="ds-label">Overall Progress</div>
+            <div className="ds-label">{T('dash_progress')}</div>
           </div>
           <div className="dash-stat-card" style={{ borderTop: `4px solid ${RED}` }}>
             <div className="ds-number" style={{ color: RED }}>{mockPosts.length}</div>
-            <div className="ds-label">Community Posts</div>
+            <div className="ds-label">{T('dash_posts')}</div>
           </div>
         </div>
 
@@ -103,7 +105,7 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
           boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
         }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
-            <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#1a1a2e' }}>Your Moral Journey</span>
+            <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#1a1a2e' }}>{T('dash_journey')}</span>
             <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#b89000' }}>{pct}%</span>
           </div>
           <div style={{ background: '#f0ede0', borderRadius: '6px', height: '10px', overflow: 'hidden' }}>
