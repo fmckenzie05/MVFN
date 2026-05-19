@@ -1,0 +1,142 @@
+TERMS OF SERVICE
+Last updated: [DATE]
+
+These Terms of Service ("Terms") govern your access to and use of the Moral Value Foundation Network application, including the website, web application, mobile versions (if any), and related services (collectively, the "Service"). The Service is operated by [LEGAL ENTITY NAME] ("MVFN," "we," "us," or "our").
+
+By creating an account, accessing, or using the Service, you agree to be bound by these Terms. If you are using the Service on behalf of an organization, you represent that you have authority to bind that organization to these Terms.
+
+If you do not agree to these Terms, do not use the Service.
+
+1. Scope of the Service
+MVFN is an educational and community platform centered on the Moral Value Foundation Network framework. The Service may include interactive lessons, quizzes, reflections, progress tracking, profiles, community posts, comments, and related learning tools.
+
+We may update, improve, or modify the Service from time to time.
+
+2. Eligibility and Accounts
+You must be at least the age of majority in your jurisdiction, or have permission from a parent or legal guardian where permitted by law, to use the Service.
+
+When you create an account, you agree to:
+- provide accurate, current, and complete information;
+- keep your login credentials secure;
+- be responsible for activity that occurs under your account; and
+- notify us promptly if you believe your account has been accessed without authorization.
+
+You may not share your account with another person or impersonate anyone else.
+
+3. License to Use the Service
+Subject to your compliance with these Terms, MVFN grants you a limited, non-exclusive, non-transferable, non-sublicensable, revocable right to access and use the Service for your personal, educational, and lawful internal use.
+
+No ownership rights are transferred to you. All rights not expressly granted are reserved by MVFN and its licensors.
+
+4. Community Features and User Content
+The Service may allow you to submit, upload, publish, or share content such as profile information, posts, comments, reflections, messages, and other materials (collectively, "User Content").
+
+You retain ownership of your User Content. However, by submitting User Content through the Service, you grant MVFN a worldwide, non-exclusive, royalty-free license to host, store, reproduce, adapt, display, distribute, and otherwise use that User Content as necessary to:
+- operate and provide the Service;
+- display your content to other users in accordance with the Service's features;
+- improve, maintain, and develop the Service; and
+- promote the Service, unless prohibited by applicable law.
+
+You are solely responsible for your User Content and represent that:
+- you have all rights necessary to submit it;
+- it does not infringe or violate any third-party rights;
+- it is not unlawful, defamatory, harassing, abusive, hateful, deceptive, or obscene; and
+- it does not contain malware, malicious code, or harmful material.
+
+We may, but are not required to, review, moderate, remove, or restrict User Content at our discretion.
+
+5. Acceptable Use
+You agree not to:
+- use the Service for any unlawful purpose or in violation of applicable law;
+- harass, threaten, exploit, or harm other users;
+- post false, misleading, infringing, or harmful content;
+- upload third-party personal data without authorization;
+- interfere with or disrupt the integrity, security, or performance of the Service;
+- attempt to gain unauthorized access to the Service or related systems;
+- scrape, crawl, copy, or data-mine the Service except as expressly permitted by us;
+- reverse engineer, decompile, or attempt to derive source code from the Service except where prohibited by law from restricting that activity; or
+- use the Service to distribute spam, malware, or other harmful code.
+
+6. Educational Purpose Disclaimer
+The Service is provided for educational, informational, and community discussion purposes. It is not legal, medical, mental health, or other professional advice. You are responsible for how you interpret and use any information or educational content made available through the Service.
+
+7. Progress Tracking and Local Device Storage
+Some features of the Service may store progress, preferences, or other usage information locally on your device or browser. You understand that locally stored information may be lost if you clear browser storage, switch devices, or uninstall the application, unless and until cloud synchronization or backup features are expressly provided.
+
+8. Third-Party Services
+The Service may integrate with or rely on third-party services, including authentication providers, hosting providers, analytics tools, payment processors, or social platforms.
+
+We are not responsible for third-party services, content, or websites, and your use of them may be subject to separate terms and privacy policies.
+
+9. Intellectual Property
+The Service, including its software, design, text, graphics, logos, lesson materials, audiovisual elements, and other content provided by MVFN, is owned by or licensed to MVFN and is protected by intellectual property laws.
+
+Except for the limited license granted in these Terms, you may not copy, modify, distribute, sell, lease, publicly display, publicly perform, or create derivative works from the Service or our content without our prior written permission.
+
+10. Privacy
+Your use of the Service is also subject to our Privacy Policy, which describes how we collect, use, and disclose personal information. By using the Service, you acknowledge that we may process personal information in accordance with the Privacy Policy.
+
+11. Paid Features and Fees
+Certain features of the Service may currently be free, and some features may become paid in the future. If we offer paid subscriptions, premium access, digital content, or other paid features, we will present the applicable pricing, billing terms, renewal terms, and refund rules to you before you are charged.
+
+Unless otherwise required by law or expressly stated at the time of purchase, fees are non-refundable.
+
+12. Availability and Changes
+We do not guarantee that the Service will always be available, uninterrupted, secure, or error-free. We may suspend, restrict, or discontinue all or part of the Service at any time, including for maintenance, updates, security issues, or legal reasons.
+
+We may also change features or functionality at any time.
+
+13. Termination
+You may stop using the Service at any time.
+
+We may suspend or terminate your access to the Service, or remove content, if we reasonably believe that:
+- you have violated these Terms;
+- your use of the Service creates risk for us, other users, or third parties; or
+- we are required to do so by law.
+
+Upon termination, the rights granted to you under these Terms will cease immediately. Sections that by their nature should survive termination will survive, including sections relating to intellectual property, disclaimers, limitations of liability, indemnity, and dispute resolution.
+
+14. Disclaimers
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE SERVICE IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS, IMPLIED, OR STATUTORY, INCLUDING IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT.
+
+We do not warrant that the Service will meet your requirements, achieve any particular learning outcome, be uninterrupted, be secure, or be free of errors or harmful components.
+
+15. Limitation of Liability
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, MVFN AND ITS AFFILIATES, OFFICERS, DIRECTORS, EMPLOYEES, CONTRACTORS, LICENSORS, AND SERVICE PROVIDERS WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY, OR PUNITIVE DAMAGES, OR FOR ANY LOSS OF DATA, PROFITS, REVENUE, GOODWILL, OR BUSINESS OPPORTUNITIES, ARISING OUT OF OR RELATED TO YOUR USE OF OR INABILITY TO USE THE SERVICE.
+
+TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE TOTAL LIABILITY OF MVFN FOR ALL CLAIMS ARISING OUT OF OR RELATING TO THE SERVICE OR THESE TERMS WILL NOT EXCEED THE GREATER OF: (A) THE AMOUNT YOU PAID TO MVFN FOR THE SERVICE IN THE 12 MONTHS BEFORE THE CLAIM AROSE; OR (B) USD 100.
+
+Nothing in these Terms limits liability that cannot be limited under applicable law.
+
+16. Indemnification
+You agree to defend, indemnify, and hold harmless MVFN and its affiliates, personnel, licensors, and service providers from and against any claims, liabilities, damages, judgments, losses, costs, expenses, and fees (including reasonable attorneys' fees) arising out of or related to:
+- your User Content;
+- your misuse of the Service;
+- your violation of these Terms; or
+- your violation of any law or third-party right.
+
+17. Changes to These Terms
+We may update these Terms from time to time. If we make material changes, we will provide notice by updating the date above and, where appropriate, by additional notice within the Service or by email.
+
+Your continued use of the Service after revised Terms become effective constitutes your acceptance of the revised Terms.
+
+18. Governing Law and Dispute Resolution
+These Terms are governed by the laws of [JURISDICTION], excluding its conflict of laws rules.
+
+Any dispute, claim, or controversy arising out of or relating to these Terms or the Service will be resolved exclusively in the courts located in [VENUE], unless applicable consumer protection law requires otherwise.
+
+19. Miscellaneous
+If any provision of these Terms is found unenforceable, the remaining provisions will remain in full force and effect.
+
+Our failure to enforce any provision of these Terms will not be deemed a waiver.
+
+You may not assign or transfer your rights or obligations under these Terms without our prior written consent. We may assign these Terms in connection with a merger, acquisition, reorganization, or sale of assets.
+
+These Terms, together with any policies or additional terms expressly incorporated by reference, constitute the entire agreement between you and MVFN regarding the Service.
+
+20. Contact Information
+If you have questions about these Terms, contact us at:
+
+[LEGAL ENTITY NAME]
+[BUSINESS ADDRESS]
+[CONTACT EMAIL]

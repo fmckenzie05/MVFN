@@ -1307,6 +1307,112 @@
 .node-g { cursor: pointer; }
 
 /* ═══════════════════════════════════════
+   LEGAL PAGES
+═══════════════════════════════════════ */
+.legal-page {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.legal-hero {
+  background: linear-gradient(135deg, #0f0f1a, #1a3a2a);
+  border-radius: 20px;
+  padding: 2rem 2.25rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(200,151,31,0.2);
+}
+
+.legal-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #c8971f;
+  margin-bottom: 0.5rem;
+}
+
+.legal-hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  line-height: 1.1;
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 0.6rem;
+}
+
+.legal-subtitle {
+  font-size: 0.95rem;
+  color: #d6d6d6;
+  max-width: 700px;
+  margin-bottom: 1rem;
+}
+
+.legal-meta {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.legal-meta span {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #c8971f;
+  background: rgba(255,209,0,0.08);
+  border: 1px solid rgba(255,209,0,0.18);
+  border-radius: 999px;
+  padding: 0.35rem 0.75rem;
+}
+
+.legal-card {
+  background: #fff;
+  border: 1px solid #e8e4d8;
+  border-radius: 16px;
+  padding: 1.5rem 1.75rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  margin-bottom: 1rem;
+}
+
+.legal-section h2 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin-bottom: 0.9rem;
+}
+
+.legal-card p {
+  font-size: 0.95rem;
+  color: #2a2a3e;
+  line-height: 1.8;
+  margin-bottom: 0.9rem;
+}
+
+.legal-card p:last-child {
+  margin-bottom: 0;
+}
+
+.legal-list {
+  padding-left: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.legal-list li {
+  color: #2a2a3e;
+  line-height: 1.7;
+}
+
+.legal-contact {
+  background: #f9f8f4;
+  border: 1px solid #e8e4d8;
+  border-radius: 12px;
+  padding: 1rem 1.1rem;
+  color: #1a1a2e;
+  font-weight: 600;
+  display: grid;
+  gap: 0.35rem;
+}
+
+/* ═══════════════════════════════════════
    RESPONSIVE
 ═══════════════════════════════════════ */
 @media (max-width: 900px) {
@@ -1347,6 +1453,8 @@
 @media (max-width: 480px) {
   .dash-grid { grid-template-columns: 1fr; }
   .lesson-nav-row { flex-direction: column; }
+  .legal-card,
+  .legal-hero { padding: 1.25rem; }
 }
 
 /* ═══════════════════════════════════════

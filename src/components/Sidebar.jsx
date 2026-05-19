@@ -11,6 +11,8 @@ export default function Sidebar({ page, setPage, completedLessons, lang, setLang
     { id: 'community', icon: '💬', label: T('nav_community') },
     { id: 'network',   icon: '🌐', label: T('nav_network') },
     { id: 'profile',   icon: '👤', label: T('nav_profile') },
+    { id: 'terms',     icon: '📜', label: 'Terms' },
+    { id: 'privacy',   icon: '🔒', label: 'Privacy' },
   ];
 
   return (

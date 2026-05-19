@@ -9,6 +9,8 @@ import Community  from './components/Community';
 import Profile    from './components/Profile';
 import NetworkMap from './components/NetworkMap';
 import AuthPage   from './components/AuthPage';
+import TermsOfService from './components/TermsOfService';
+import PrivacyPolicy from './components/PrivacyPolicy';
 
 import { mockPosts } from './data/mockData';
 import { chapters }  from './data/chapters';
@@ -52,6 +54,8 @@ const PAGE_TITLES = {
   community: 'Community',
   network:   'Network',
   profile:   'Profile',
+  terms:     'Terms of Service',
+  privacy:   'Privacy Policy',
 };
 
 export default function App() {
@@ -275,6 +279,10 @@ export default function App() {
             onLogout={handleLogout}
           />
         )}
+
+        {page === 'terms' && <TermsOfService />}
+
+        {page === 'privacy' && <PrivacyPolicy />}
       </div>
     </div>
   );
