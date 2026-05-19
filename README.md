@@ -1,16 +1,19 @@
-# React + Vite
+# MVFN — Moral Value Foundation Network
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A teaching and community platform built on the 20 moral pillars of the MVFN framework.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- 20 interactive lesson modules with quizzes and reflections
+- Progress tracking (persisted to localStorage)
+- Community feed — post, like, comment, filter by pillar
+- Profile with achievements
+- Interactive network map of all 20 pillars
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+React + Vite, plain CSS, no routing library
 
-## Expanding the ESLint configuration
+## Live Site
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+[https://fmckenzie05.github.io/MVFN/](https://fmckenzie05.github.io/MVFN/)
