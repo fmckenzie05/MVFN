@@ -30,8 +30,15 @@ const PAGE_TITLES = {
 export default function App() {
   // ── Auth state ─────────────────────────────────────────
   const [user, setUser] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('mvfn_user')) || null; }
-    catch { return null; }
+    try {
+      const stored = JSON.parse(localStorage.getItem('mvfn_user'));
+      // Reject any leftover guest sessions — guest login no longer exists
+      if (stored?.provider === 'guest') {
+        localStorage.removeItem('mvfn_user');
+        return null;
+      }
+      return stored || null;
+    } catch { return null; }
   });
 
   // ── Language ───────────────────────────────────────────
