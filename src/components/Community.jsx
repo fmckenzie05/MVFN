@@ -190,7 +190,7 @@ export default function Community({ posts, setPosts }) {
           ))}
 
           {filtered.length === 0 && (
-            <div style={{ textAlign: 'center', padding: '3rem', color: '#aaa' }}>
+            <div style={{ textAlign: 'center', padding: '3rem', color: 'var(--text-3)' }}>
               No posts for this pillar yet. Be the first to share!
             </div>
           )}
@@ -224,8 +224,8 @@ export default function Community({ posts, setPosts }) {
                 <div key={ch.id} style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.65rem' }}>
                   <span style={{ fontSize: '1.1rem' }}>{ch.icon}</span>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#1a1a2e' }}>{ch.title}</div>
-                    <div style={{ fontSize: '0.7rem', color: '#999' }}>{count} post{count !== 1 ? 's' : ''}</div>
+                    <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-1)' }}>{ch.title}</div>
+                    <div style={{ fontSize: '0.7rem', color: 'var(--text-3)' }}>{count} post{count !== 1 ? 's' : ''}</div>
                   </div>
                 </div>
               ))}

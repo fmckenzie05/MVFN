@@ -83,7 +83,7 @@ function QuizBlock({ quiz, onPass }) {
             ? '✓ Great work! You answered everything correctly.'
             : '✗ Some answers need review. Read back through the lesson and try again.'}
           {!passed && (
-            <button onClick={retry} style={{ display: 'block', marginTop: '0.6rem', background: 'none', color: '#b71c1c', fontWeight: 700, cursor: 'pointer', border: 'none', fontSize: '0.85rem' }}>
+            <button onClick={retry} style={{ display: 'block', marginTop: '0.6rem', background: 'none', color: '#FF5252', fontWeight: 700, cursor: 'pointer', border: 'none', fontSize: '0.85rem' }}>
               ↺ Retry Quiz
             </button>
           )}
@@ -165,7 +165,7 @@ export default function LessonView({ chapterId, setPage, setCurrentChapter, comp
           <h3>💭 Moral Reflection</h3>
           <p className="reflection-prompt">{chapter.reflection}</p>
           {shared ? (
-            <div style={{ color: '#c8971f', fontWeight: 700, padding: '0.75rem 0' }}>
+            <div style={{ color: '#E8B23A', fontWeight: 700, padding: '0.75rem 0' }}>
               ✓ Your reflection has been shared to the community!
             </div>
           ) : (

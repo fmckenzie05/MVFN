@@ -13,11 +13,11 @@ const ACHIEVEMENTS = [
   { icon: '🌟', name: 'Moral Leader',    req: 20 },
 ];
 
-const GREEN = '#009B3A';
-const GOLD  = '#C8971F';
-const RED   = '#CC0000';
+const GREEN = '#00C04B';
+const GOLD  = '#E8B23A';
+const RED   = '#FF5252';
 
-export default function Profile({ completedLessons, posts, user, lang = 'en', onLogout }) {
+export default function Profile({ completedLessons, posts, user, lang = 'en', onLogout, setPage }) {
   const T = makeT(lang);
 
   // Use the passed-in user prop for display; fall back to mockCurrentUser for following stat
@@ -125,7 +125,7 @@ export default function Profile({ completedLessons, posts, user, lang = 'en', on
               <div className="achievement-icon">{a.icon}</div>
               <div className="achievement-name">{a.name}</div>
               {!earned && (
-                <div style={{ fontSize: '0.68rem', color: '#bbb', marginTop: '0.25rem' }}>
+                <div style={{ fontSize: '0.68rem', color: 'var(--text-3)', marginTop: '0.25rem' }}>
                   {a.special ? 'Post in community' : `${a.req} lessons needed`}
                 </div>
               )}
@@ -187,6 +187,14 @@ export default function Profile({ completedLessons, posts, user, lang = 'en', on
             </div>
           ))}
         </>
+      )}
+
+      {/* Legal links (Terms/Privacy are hidden from bottom nav on mobile) */}
+      {setPage && (
+        <div className="profile-legal-links">
+          <button onClick={() => setPage('terms')}>Terms of Service</button>
+          <button onClick={() => setPage('privacy')}>Privacy Policy</button>
+        </div>
       )}
 
     </div>

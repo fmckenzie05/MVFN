@@ -83,8 +83,8 @@ export default function Sidebar({ page, setPage, completedLessons, lang, setLang
     { id: 'community', Icon: ChatIcon,    label: T('nav_community') },
     { id: 'network',   Icon: NetworkIcon, label: T('nav_network') },
     { id: 'profile',   Icon: PersonIcon,  label: T('nav_profile') },
-    { id: 'terms',     Icon: DocIcon,     label: 'Terms' },
-    { id: 'privacy',   Icon: LockIcon,    label: 'Privacy' },
+    { id: 'terms',     Icon: DocIcon,     label: 'Terms',   secondary: true },
+    { id: 'privacy',   Icon: LockIcon,    label: 'Privacy', secondary: true },
   ];
 
   return (
@@ -100,10 +100,10 @@ export default function Sidebar({ page, setPage, completedLessons, lang, setLang
 
       {/* Navigation */}
       <nav className="sidebar-nav">
-        {navItems.map(({ id, Icon, label }) => (
+        {navItems.map(({ id, Icon, label, secondary }) => (
           <button
             key={id}
-            className={`nav-item${page === id ? ' active' : ''}`}
+            className={`nav-item${page === id ? ' active' : ''}${secondary ? ' nav-secondary' : ''}`}
             onClick={() => setPage(id)}
           >
             <span className="nav-icon"><Icon /></span>

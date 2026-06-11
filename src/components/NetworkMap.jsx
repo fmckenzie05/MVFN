@@ -86,7 +86,7 @@ export default function NetworkMap({ setPage, setCurrentChapter }) {
               key={ch.id}
               onClick={() => open(ch.id)}
               style={{
-                background: '#fff',
+                background: 'var(--surface)',
                 border: `1.5px solid ${ch.color}30`,
                 borderRadius: '10px',
                 padding: '0.7rem 0.9rem',
@@ -98,12 +98,12 @@ export default function NetworkMap({ setPage, setCurrentChapter }) {
                 transition: 'all 0.18s',
               }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = ch.accent; e.currentTarget.style.background = `${ch.color}0d`; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = `${ch.color}30`; e.currentTarget.style.background = '#fff'; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = `${ch.color}30`; e.currentTarget.style.background = 'var(--surface)'; }}
             >
               <span style={{ fontSize: '1.15rem' }}>{ch.icon}</span>
               <div>
                 <div style={{ fontSize: '0.62rem', color: ch.accent, fontWeight: 700 }}>Ch.{ch.number}</div>
-                <div style={{ fontSize: '0.82rem', fontWeight: 700, color: '#1a1a2e', lineHeight: 1.2 }}>{ch.title}</div>
+                <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-1)', lineHeight: 1.2 }}>{ch.title}</div>
               </div>
             </button>
           ))}

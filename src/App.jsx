@@ -213,6 +213,7 @@ export default function App() {
             user={user}
             lang={lang}
             onLogout={handleLogout}
+            setPage={navigate}
           />
         )}
 

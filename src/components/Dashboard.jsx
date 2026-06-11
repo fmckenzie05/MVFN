@@ -2,9 +2,9 @@ import { chapters } from '../data/chapters';
 import { mockPosts, mockUsers } from '../data/mockData';
 import { makeT } from '../i18n/index';
 
-const GREEN = '#009B3A';
-const GOLD  = '#C8971F';
-const RED   = '#CC0000';
+const GREEN = '#00C04B';
+const GOLD  = '#E8B23A';
+const RED   = '#FF5252';
 
 export default function Dashboard({ completedLessons, setPage, setCurrentChapter, lang = 'en' }) {
   const T = makeT(lang);
