@@ -6,55 +6,71 @@ const GOLD  = '#FFD100';
 const RED   = '#CC0000';
 
 export default function AuthPage({ lang, setLang, onLogin }) {
-  const [view, setView]         = useState('landing'); // landing | signup | login
-  const [name, setName]         = useState('');
-  const [email, setEmail]       = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError]       = useState('');
+  const [view, setView]               = useState('signup'); // signup | login
+  const [name, setName]               = useState('');
+  const [email, setEmail]             = useState('');
+  const [password, setPassword]       = useState('');
+  const [confirm, setConfirm]         = useState('');
+  const [error, setError]             = useState('');
+  const [showPass, setShowPass]       = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const T = makeT(lang);
 
-  function handleEmailSignup(e) {
+  function switchView(v) {
+    setView(v);
+    setError('');
+    setName('');
+    setEmail('');
+    setPassword('');
+    setConfirm('');
+    setShowPass(false);
+    setShowConfirm(false);
+  }
+
+  function handleSignup(e) {
     e.preventDefault();
     setError('');
-    if (!name.trim() || !email.trim() || !password.trim()) {
+
+    if (!name.trim() || !email.trim() || !password.trim() || !confirm.trim()) {
       setError('Please fill in all fields.');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      setError('Please enter a valid email address.');
       return;
     }
     if (password.length < 6) {
       setError('Password must be at least 6 characters.');
       return;
     }
+    if (password !== confirm) {
+      setError('Passwords do not match.');
+      return;
+    }
+
     onLogin({
-      name:   name.trim(),
-      handle: name.trim().toLowerCase().replace(/\s+/g, ''),
-      avatar: '🌱',
+      name:     name.trim(),
+      handle:   name.trim().toLowerCase().replace(/\s+/g, ''),
+      avatar:   '🌱',
       lang,
       provider: 'email',
     });
   }
 
-  function handleGuestLogin() {
-    onLogin({
-      name: 'Guest User',
-      handle: 'guest',
-      avatar: '👋',
-      lang,
-      provider: 'guest',
-    });
-  }
-
-  function handleEmailLogin(e) {
+  function handleLogin(e) {
     e.preventDefault();
     setError('');
+
     if (!email.trim() || !password.trim()) {
       setError('Please fill in all fields.');
       return;
     }
+
     onLogin({
-      name:   email.split('@')[0],
-      handle: email.split('@')[0].toLowerCase(),
-      avatar: '🌱',
+      name:     email.split('@')[0],
+      handle:   email.split('@')[0].toLowerCase(),
+      avatar:   '🌱',
       lang,
       provider: 'email',
     });
@@ -62,6 +78,7 @@ export default function AuthPage({ lang, setLang, onLogin }) {
 
   return (
     <div className="auth-root">
+      {/* Top tri-color stripe */}
       <div className="auth-stripe">
         <div style={{ flex: 1, background: GREEN }} />
         <div style={{ flex: 1, background: GOLD  }} />
@@ -69,6 +86,7 @@ export default function AuthPage({ lang, setLang, onLogin }) {
       </div>
 
       <div className="auth-card">
+        {/* Brand mark */}
         <div className="auth-logo-wrap">
           <div className="auth-logo-ring">
             <span className="auth-logo-text">MVFN</span>
@@ -76,69 +94,41 @@ export default function AuthPage({ lang, setLang, onLogin }) {
           <div className="auth-logo-sub">Moral Value Foundation Network</div>
         </div>
 
-        {view === 'landing' && (
-          <>
-            <h1 className="auth-heading">{T('auth_join_heading')}</h1>
-            <p className="auth-sub">{T('auth_join_sub')}</p>
+        {/* Sign Up / Log In tab switcher */}
+        <div className="auth-tabs">
+          <button
+            className={`auth-tab-btn${view === 'signup' ? ' active' : ''}`}
+            onClick={() => switchView('signup')}
+          >
+            Sign Up
+          </button>
+          <button
+            className={`auth-tab-btn${view === 'login' ? ' active' : ''}`}
+            onClick={() => switchView('login')}
+          >
+            Log In
+          </button>
+        </div>
 
-            <div className="auth-lang-label">{T('auth_choose_lang')}</div>
-            <div className="auth-lang-row">
-              {LANGUAGES.map(l => (
-                <button
-                  key={l.code}
-                  className={`auth-lang-btn${lang === l.code ? ' active' : ''}`}
-                  onClick={() => setLang(l.code)}
-                >
-                  <span className="lang-flag">{l.flag}</span>
-                  <span className="lang-native">{l.native}</span>
-                </button>
-              ))}
-            </div>
-
-            <button
-              className="auth-email-btn"
-              onClick={() => { setView('signup'); setError(''); }}
-            >
-              {T('auth_email_btn')}
-            </button>
-
-            <button
-              className="auth-guest-btn"
-              onClick={handleGuestLogin}
-            >
-              Continue as guest
-            </button>
-
-            <p className="auth-switch">
-              {T('auth_already')}{' '}
-              <button
-                className="auth-link"
-                onClick={() => { setView('login'); setError(''); }}
-              >
-                {T('auth_login')}
-              </button>
-            </p>
-          </>
-        )}
-
+        {/* ── SIGN UP ── */}
         {view === 'signup' && (
           <>
-            <button className="auth-back-btn" onClick={() => setView('landing')}>
-              ← {T('auth_back')}
-            </button>
-            <h1 className="auth-heading">{T('auth_email_btn')}</h1>
+            <h1 className="auth-heading">Create Your Account</h1>
+            <p className="auth-sub">Start your moral learning journey today.</p>
 
-            <form className="auth-form" onSubmit={handleEmailSignup}>
+            <form className="auth-form" onSubmit={handleSignup} noValidate>
+
               <div className="auth-field">
                 <label>{T('auth_name')}</label>
                 <input
                   type="text"
-                  placeholder="Fayah Henry"
+                  placeholder="Your full name"
                   value={name}
                   onChange={e => setName(e.target.value)}
                   autoComplete="name"
                 />
               </div>
+
               <div className="auth-field">
                 <label>{T('auth_email')}</label>
                 <input
@@ -149,20 +139,52 @@ export default function AuthPage({ lang, setLang, onLogin }) {
                   autoComplete="email"
                 />
               </div>
+
               <div className="auth-field">
                 <label>{T('auth_password')}</label>
-                <input
-                  type="password"
-                  placeholder="Min. 6 characters"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  autoComplete="new-password"
-                />
+                <div className="auth-input-wrap">
+                  <input
+                    type={showPass ? 'text' : 'password'}
+                    placeholder="Min. 6 characters"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    autoComplete="new-password"
+                  />
+                  <button
+                    type="button"
+                    className="auth-eye-btn"
+                    onClick={() => setShowPass(v => !v)}
+                    aria-label={showPass ? 'Hide password' : 'Show password'}
+                  >
+                    {showPass ? '🙈' : '👁'}
+                  </button>
+                </div>
+              </div>
+
+              <div className="auth-field">
+                <label>Confirm Password</label>
+                <div className="auth-input-wrap">
+                  <input
+                    type={showConfirm ? 'text' : 'password'}
+                    placeholder="Re-enter your password"
+                    value={confirm}
+                    onChange={e => setConfirm(e.target.value)}
+                    autoComplete="new-password"
+                  />
+                  <button
+                    type="button"
+                    className="auth-eye-btn"
+                    onClick={() => setShowConfirm(v => !v)}
+                    aria-label={showConfirm ? 'Hide password' : 'Show password'}
+                  >
+                    {showConfirm ? '🙈' : '👁'}
+                  </button>
+                </div>
               </div>
 
               <div className="auth-field">
                 <label>{T('auth_choose_lang')}</label>
-                <div className="auth-lang-row" style={{ marginTop: '0.4rem' }}>
+                <div className="auth-lang-row" style={{ marginTop: '0.4rem', marginBottom: 0 }}>
                   {LANGUAGES.map(l => (
                     <button
                       key={l.code}
@@ -186,25 +208,21 @@ export default function AuthPage({ lang, setLang, onLogin }) {
 
             <p className="auth-switch">
               {T('auth_already')}{' '}
-              <button
-                className="auth-link"
-                onClick={() => { setView('login'); setError(''); }}
-              >
+              <button className="auth-link" onClick={() => switchView('login')}>
                 {T('auth_login')}
               </button>
             </p>
-
           </>
         )}
 
+        {/* ── LOG IN ── */}
         {view === 'login' && (
           <>
-            <button className="auth-back-btn" onClick={() => setView('landing')}>
-              ← {T('auth_back')}
-            </button>
             <h1 className="auth-heading">{T('auth_login_heading')}</h1>
+            <p className="auth-sub">{T('auth_welcome_back')} — continue your journey.</p>
 
-            <form className="auth-form" onSubmit={handleEmailLogin}>
+            <form className="auth-form" onSubmit={handleLogin} noValidate>
+
               <div className="auth-field">
                 <label>{T('auth_email')}</label>
                 <input
@@ -215,15 +233,26 @@ export default function AuthPage({ lang, setLang, onLogin }) {
                   autoComplete="email"
                 />
               </div>
+
               <div className="auth-field">
                 <label>{T('auth_password')}</label>
-                <input
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  autoComplete="current-password"
-                />
+                <div className="auth-input-wrap">
+                  <input
+                    type={showPass ? 'text' : 'password'}
+                    placeholder="••••••••"
+                    value={password}
+                    onChange={e => setPassword(e.target.value)}
+                    autoComplete="current-password"
+                  />
+                  <button
+                    type="button"
+                    className="auth-eye-btn"
+                    onClick={() => setShowPass(v => !v)}
+                    aria-label={showPass ? 'Hide password' : 'Show password'}
+                  >
+                    {showPass ? '🙈' : '👁'}
+                  </button>
+                </div>
               </div>
 
               {error && <div className="auth-error">{error}</div>}
@@ -235,18 +264,15 @@ export default function AuthPage({ lang, setLang, onLogin }) {
 
             <p className="auth-switch">
               {T('auth_no_account')}{' '}
-              <button
-                className="auth-link"
-                onClick={() => { setView('signup'); setError(''); }}
-              >
+              <button className="auth-link" onClick={() => switchView('signup')}>
                 {T('auth_signup')}
               </button>
             </p>
-
           </>
         )}
       </div>
 
+      {/* Bottom tri-color stripe (reversed) */}
       <div className="auth-stripe">
         <div style={{ flex: 1, background: RED   }} />
         <div style={{ flex: 1, background: GOLD  }} />
