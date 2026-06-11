@@ -26,11 +26,6 @@ const t = {
     pat: 'Pick yuh language',
     es:  'Elige tu idioma',
   },
-  auth_tiktok_btn: {
-    en:  'Continue with TikTok',
-    pat: 'Link In Wid TikTok',
-    es:  'Continuar con TikTok',
-  },
   auth_or: {
     en:  'or',
     pat: 'or',
@@ -96,17 +91,6 @@ const t = {
     pat: 'Link Up',
     es:  'Regístrate',
   },
-  auth_tiktok_note: {
-    en:  'You\'ll be redirected to TikTok to authorize. We only request your display name and profile picture.',
-    pat: 'Yuh a go to TikTok fi authorize. We only ask fi yuh name and profile picture.',
-    es:  'Serás redirigido a TikTok para autorizar. Solo solicitamos tu nombre y foto de perfil.',
-  },
-  auth_callback_processing: {
-    en:  'Connecting your TikTok…',
-    pat: 'Linkin up yuh TikTok…',
-    es:  'Conectando tu TikTok…',
-  },
-
   // ── NAV ───────────────────────────────────────────────
   nav_dashboard: {
     en:  'Dashboard',

@@ -16,37 +16,6 @@ import { mockPosts } from './data/mockData';
 import { chapters }  from './data/chapters';
 import { LANGUAGES, makeT } from './i18n/index';
 
-// ─────────────────────────────────────────────────────────
-//  TikTok OAuth Callback Handler
-//  When TikTok redirects back to /auth/callback?code=xxx
-//  we detect the code here and do a mock token exchange.
-//  ⚠️  In production: send the code to YOUR backend server,
-//      which calls https://open.tiktokapis.com/v2/oauth/token/
-//      using the client_secret (never expose in frontend).
-// ─────────────────────────────────────────────────────────
-function detectTikTokCallback() {
-  const params = new URLSearchParams(window.location.search);
-  const code   = params.get('code');
-  const state  = params.get('state');
-  const saved  = sessionStorage.getItem('tiktok_oauth_state');
-  const error  = params.get('error');
-
-  if (error) {
-    console.warn('TikTok OAuth error:', params.get('error_description'));
-    window.history.replaceState({}, '', '/');
-    return null;
-  }
-
-  if (code && state && state === saved) {
-    sessionStorage.removeItem('tiktok_oauth_state');
-    // Clean URL
-    window.history.replaceState({}, '', '/');
-    return { code };
-  }
-
-  return null;
-}
-
 const PAGE_TITLES = {
   dashboard: 'Dashboard',
   learn:     'Learn',
@@ -76,33 +45,6 @@ export default function App() {
   }
 
   const T = makeT(lang);
-
-  // ── TikTok callback on mount ───────────────────────────
-  const [tiktokProcessing, setTiktokProcessing] = useState(false);
-
-  useEffect(() => {
-    const cb = detectTikTokCallback();
-    if (!cb) return;
-
-    setTiktokProcessing(true);
-
-    // ⚠️  PRODUCTION: Replace this with a fetch to your backend:
-    // fetch('/api/auth/tiktok', { method:'POST', body: JSON.stringify({ code: cb.code }) })
-    //   .then(r => r.json())
-    //   .then(data => { handleLogin(data.user); setTiktokProcessing(false); })
-    //
-    // DEMO MOCK — simulates a successful TikTok login:
-    setTimeout(() => {
-      handleLogin({
-        name:     'TikTok User',
-        handle:   'tiktokuser',
-        avatar:   '🎵',
-        lang:     localStorage.getItem('mvfn_lang') || 'en',
-        provider: 'tiktok',
-      });
-      setTiktokProcessing(false);
-    }, 1800);
-  }, []);
 
   function handleLogin(userData) {
     const u = { ...userData, lang: userData.lang || lang };
@@ -156,19 +98,6 @@ export default function App() {
       comments: [],
     };
     setPosts(prev => [newPost, ...prev]);
-  }
-
-  // ── TikTok processing screen ───────────────────────────
-  if (tiktokProcessing) {
-    return (
-      <div className="auth-callback">
-        <div className="auth-logo-ring" style={{ width: 68, height: 68, border: '3px solid #FFD100' }}>
-          <span style={{ fontSize: '1.1rem', fontWeight: 900, color: '#FFD100', letterSpacing: '0.1em' }}>MVFN</span>
-        </div>
-        <div className="auth-callback-spinner" />
-        <p style={{ color: '#888', fontSize: '0.95rem' }}>{T('auth_callback_processing')}</p>
-      </div>
-    );
   }
 
   // ── Not authenticated → show auth page ────────────────

@@ -2,9 +2,9 @@ import { chapters } from '../data/chapters';
 import { mockPosts, mockUsers } from '../data/mockData';
 import { makeT } from '../i18n/index';
 
-const RED   = '#CC0000';
-const GOLD  = '#FFD100';
 const GREEN = '#009B3A';
+const GOLD  = '#C8971F';
+const RED   = '#CC0000';
 
 export default function Dashboard({ completedLessons, setPage, setCurrentChapter, lang = 'en' }) {
   const T = makeT(lang);
@@ -19,80 +19,46 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
 
   return (
     <div>
-      {/* ── TRI-COLOR HERO ── */}
-      <div className="dash-hero">
-        {/* Three-stripe bar */}
-        <div className="dash-stripe-bar">
-          <div style={{ flex: 1, background: GREEN }} />
-          <div style={{ flex: 1, background: GOLD  }} />
-          <div style={{ flex: 1, background: RED   }} />
-        </div>
-
-        <div className="dash-hero-inner">
-          {/* Logo mark */}
-          <div className="dash-logo-ring">
-            <span className="dash-logo-text">MVFN</span>
+      {/* ── Compact brand banner */}
+      <div className="dash-banner">
+        <div className="tricolor-bar" />
+        <div className="dash-banner-body">
+          <div className="dash-banner-brand">
+            <div className="dash-banner-mark">MVFN</div>
+            <div>
+              <h1 className="dash-banner-title">Moral Value Foundation Network</h1>
+              <p className="dash-banner-sub">{T('dash_tagline')}</p>
+            </div>
           </div>
-
-          <h1 className="dash-hero-title">
-            Moral Value<br />
-            <span style={{ color: GOLD }}>Foundation Network</span>
-          </h1>
-
-          <p className="dash-hero-tagline">
-            <span style={{ color: GREEN }}>■</span>
-            &nbsp;{T('dash_tagline')}&nbsp;
-            <span style={{ color: RED }}>■</span>
-          </p>
-
-          <p className="dash-hero-sub">
-            {T('dash_sub')}{' '}
-            {chapters.length - completedLessons.size > 0
-              ? T('dash_remaining', chapters.length - completedLessons.size)
-              : T('dash_all_done')}
-          </p>
-
-          {/* CTA buttons */}
-          <div className="dash-hero-btns">
-            <button
-              className="dash-hero-btn-primary"
-              onClick={() => goLesson(nextLesson)}
-              style={{ background: GREEN }}
-            >
-              {T('dash_btn_learn')}
+          <div className="dash-banner-actions">
+            <button className="btn-primary" onClick={() => goLesson(nextLesson)}>
+              {T('dash_btn_learn')} →
             </button>
-            <button
-              className="dash-hero-btn-secondary"
-              onClick={() => setPage('community')}
-              style={{ borderColor: GOLD, color: GOLD }}
-            >
-              {T('dash_btn_community')}
+            <button className="btn-outline-gold" onClick={() => setPage('community')}>
+              Community
             </button>
           </div>
         </div>
-
-        {/* Bottom stripe bar */}
-        <div className="dash-stripe-bar">
-          <div style={{ flex: 1, background: RED   }} />
-          <div style={{ flex: 1, background: GOLD  }} />
-          <div style={{ flex: 1, background: GREEN }} />
-        </div>
+        <div
+          className="tricolor-bar"
+          style={{ background: 'linear-gradient(90deg, #CC0000 33.3%, #FFD100 33.3% 66.6%, #009B3A 66.6%)' }}
+        />
       </div>
 
-      {/* ── PAGE CONTENT ── */}
+      {/* ── Page content */}
       <div className="page-container">
 
-        {/* Stats */}
-        <div className="dash-grid" style={{ marginBottom: '2.25rem' }}>
-          <div className="dash-stat-card" style={{ borderTop: `4px solid ${GREEN}` }}>
+        {/* Stat cards */}
+        <div className="dash-grid">
+          <div className="dash-stat-card" style={{ borderTop: `3px solid ${GREEN}` }}>
             <div className="ds-number" style={{ color: GREEN }}>{completedLessons.size}</div>
             <div className="ds-label">{T('dash_lessons_done')}</div>
           </div>
-          <div className="dash-stat-card" style={{ borderTop: `4px solid ${GOLD}` }}>
-            <div className="ds-number" style={{ color: '#b89000' }}>{pct}%</div>
+          <div className="dash-stat-card" style={{ borderTop: `3px solid ${GOLD}` }}>
+            <div className="ds-number" style={{ color: GOLD }}>{pct}%</div>
             <div className="ds-label">{T('dash_progress')}</div>
           </div>
-          <div className="dash-stat-card" style={{ borderTop: `4px solid ${RED}` }}>
+          <div className="dash-stat-card" style={{ borderTop: `3px solid ${RED}` }}>
             <div className="ds-number" style={{ color: RED }}>{mockPosts.length}</div>
             <div className="ds-label">{T('dash_posts')}</div>
           </div>
@@ -100,86 +66,103 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
 
         {/* Progress bar */}
         <div style={{
-          background: '#fff', borderRadius: '14px', padding: '1.25rem 1.5rem',
-          marginBottom: '2rem', border: '1px solid #e8e4d8',
-          boxShadow: '0 2px 8px rgba(0,0,0,0.04)',
+          background: 'var(--surface)',
+          borderRadius: 'var(--r-lg)',
+          padding: '1.1rem 1.5rem',
+          marginBottom: '1.75rem',
+          border: '1px solid var(--border)',
+          boxShadow: 'var(--shadow-sm)',
         }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.6rem' }}>
-            <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#1a1a2e' }}>{T('dash_journey')}</span>
-            <span style={{ fontWeight: 700, fontSize: '0.88rem', color: '#b89000' }}>{pct}%</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.5rem' }}>
+            <span style={{ fontWeight: 700, fontSize: '0.85rem', color: 'var(--text-1)' }}>{T('dash_journey')}</span>
+            <span style={{ fontWeight: 700, fontSize: '0.85rem', color: GOLD }}>{pct}%</span>
           </div>
-          <div style={{ background: '#f0ede0', borderRadius: '6px', height: '10px', overflow: 'hidden' }}>
+          <div style={{ background: 'var(--border)', borderRadius: '6px', height: '8px', overflow: 'hidden' }}>
             <div style={{
-              height: '100%', width: `${pct}%`, borderRadius: '6px', transition: 'width 0.4s',
+              height: '100%',
+              width: `${pct}%`,
+              borderRadius: '6px',
+              transition: 'width 0.4s',
               background: `linear-gradient(90deg, ${GREEN}, ${GOLD}, ${RED})`,
             }} />
           </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.5rem' }}>
-            <span style={{ fontSize: '0.75rem', color: GREEN, fontWeight: 700 }}>● Start</span>
-            <span style={{ fontSize: '0.75rem', color: '#aaa' }}>{completedLessons.size} of {chapters.length} lessons</span>
-            <span style={{ fontSize: '0.75rem', color: RED, fontWeight: 700 }}>Goal ●</span>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.4rem' }}>
+            <span style={{ fontSize: '0.72rem', color: GREEN, fontWeight: 700 }}>● Start</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-3)' }}>{completedLessons.size} of {chapters.length}</span>
+            <span style={{ fontSize: '0.72rem', color: RED, fontWeight: 700 }}>Goal ●</span>
           </div>
         </div>
 
-        {/* Continue Learning */}
-        <div className="dash-section-title">📖 Continue Learning</div>
+        {/* Continue learning */}
+        <div className="dash-section-title">Continue Learning</div>
         <div
           className="dash-continue-card"
           onClick={() => goLesson(nextLesson)}
           role="button"
           tabIndex={0}
           onKeyDown={e => e.key === 'Enter' && goLesson(nextLesson)}
-          style={{ borderLeft: `5px solid ${GREEN}` }}
+          style={{ borderLeft: `4px solid ${GREEN}` }}
         >
           <div className="dcc-icon" style={{ background: `${nextLesson.color}22`, color: nextLesson.color }}>
             {nextLesson.icon}
           </div>
           <div className="dcc-meta">
-            <div className="dcc-label" style={{ color: GREEN }}>Next Lesson · Chapter {nextLesson.number}</div>
+            <div className="dcc-label" style={{ color: GREEN }}>Next Lesson · Ch.{nextLesson.number}</div>
             <div className="dcc-title">{nextLesson.title}</div>
             <div className="dcc-sub">{nextLesson.subtitle} · {nextLesson.duration}</div>
           </div>
-          <button className="dcc-btn" style={{ background: GREEN }}>Start →</button>
+          <button className="dcc-btn">{T('dash_start')} →</button>
         </div>
 
-        {/* 20 Pillars mini grid */}
-        <div className="dash-section-title">🌍 All 20 Moral Pillars</div>
+        {/* 20 Pillars */}
+        <div className="dash-section-title" style={{ marginTop: '1.5rem' }}>All 20 Moral Pillars</div>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(138px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(135px, 1fr))',
           gap: '0.65rem',
           marginBottom: '2.5rem',
         }}>
           {chapters.map((ch, i) => {
             const done = completedLessons.has(ch.id);
-            const stripe = i % 3 === 0 ? GREEN : i % 3 === 1 ? GOLD : RED;
+            const accent = i % 3 === 0 ? GREEN : i % 3 === 1 ? GOLD : RED;
             return (
               <button
                 key={ch.id}
                 onClick={() => goLesson(ch)}
                 style={{
-                  background: done ? `${stripe}12` : '#fff',
-                  border: `1.5px solid ${done ? stripe : '#e8e4d8'}`,
-                  borderTop: `3px solid ${stripe}`,
-                  borderRadius: '10px',
-                  padding: '0.75rem',
+                  background: done ? `${accent}0f` : 'var(--surface)',
+                  border: `1px solid ${done ? accent + '55' : 'var(--border)'}`,
+                  borderTop: `3px solid ${accent}`,
+                  borderRadius: 'var(--r-md)',
+                  padding: '0.7rem',
                   cursor: 'pointer',
                   textAlign: 'left',
                   transition: 'all 0.18s',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
+                  gap: '0.45rem',
+                  boxShadow: 'var(--shadow-sm)',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = stripe; e.currentTarget.style.boxShadow = `0 4px 12px ${stripe}22`; }}
-                onMouseLeave={e => { e.currentTarget.style.borderColor = done ? stripe : '#e8e4d8'; e.currentTarget.style.boxShadow = 'none'; }}
+                onMouseEnter={e => {
+                  e.currentTarget.style.boxShadow = `0 4px 14px ${accent}25`;
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={e => {
+                  e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                  e.currentTarget.style.transform = 'none';
+                }}
               >
                 <span style={{ fontSize: '1.1rem' }}>{ch.icon}</span>
                 <div>
-                  <div style={{ fontSize: '0.62rem', color: stripe, fontWeight: 700 }}>Ch.{ch.number}</div>
-                  <div style={{ fontSize: '0.78rem', fontWeight: 700, color: '#1a1a2e', lineHeight: 1.2 }}>
+                  <div style={{ fontSize: '0.6rem', color: accent, fontWeight: 700 }}>Ch.{ch.number}</div>
+                  <div style={{ fontSize: '0.76rem', fontWeight: 700, color: 'var(--text-1)', lineHeight: 1.2 }}>
                     {ch.title.replace('Moral ', '')}
                   </div>
-                  {done && <div style={{ fontSize: '0.62rem', color: stripe }}>✓ Done</div>}
+                  {done && (
+                    <div style={{ fontSize: '0.6rem', color: accent, fontWeight: 600, marginTop: '0.1rem' }}>
+                      ✓ Done
+                    </div>
+                  )}
                 </div>
               </button>
             );
@@ -187,29 +170,42 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
         </div>
 
         {/* Community Highlights */}
-        <div className="dash-section-title" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <span>💬 Community Highlights</span>
+        <div
+          className="dash-section-title"
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+        >
+          <span>Community Highlights</span>
           <button
             onClick={() => setPage('community')}
-            style={{ background: 'none', color: RED, fontSize: '0.82rem', fontWeight: 700, cursor: 'pointer', border: 'none' }}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: 'var(--gold)',
+              fontSize: '0.8rem',
+              fontWeight: 700,
+              cursor: 'pointer',
+            }}
           >
             View All →
           </button>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '3rem' }}>
           {recentPosts.map((post, i) => {
             const user = mockUsers.find(u => u.id === post.userId);
             const accent = i % 3 === 0 ? GREEN : i % 3 === 1 ? GOLD : RED;
             return (
-              <div key={post.id} className="post-card" style={{ borderLeft: `4px solid ${accent}` }}>
+              <div key={post.id} className="post-card" style={{ borderLeft: `3px solid ${accent}` }}>
                 <div className="post-header">
                   <div className="post-avatar">{user?.avatar}</div>
                   <div className="post-user-info">
                     <div className="post-name">{user?.name}</div>
                     <div className="post-handle">@{user?.handle}</div>
                   </div>
-                  <span className="post-chapter-tag" style={{ background: `${accent}18`, color: accent }}>
+                  <span
+                    className="post-chapter-tag"
+                    style={{ background: `${accent}18`, color: accent }}
+                  >
                     #{post.chapterTitle.replace(/ /g, '')}
                   </span>
                 </div>
@@ -224,31 +220,32 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
           })}
         </div>
 
-        {/* Bottom mission strip */}
+        {/* Mission quote */}
         <div style={{
-          marginTop: '3rem',
-          background: '#0f0f1a',
-          borderRadius: '18px',
+          background: 'var(--dark)',
+          borderRadius: 'var(--r-xl)',
           padding: '2rem',
-          display: 'flex',
-          gap: '0',
-          overflow: 'hidden',
           position: 'relative',
+          overflow: 'hidden',
         }}>
-          <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '4px', display: 'flex' }}>
+          <div style={{ height: '3px', display: 'flex', position: 'absolute', top: 0, left: 0, right: 0 }}>
             <div style={{ flex: 1, background: GREEN }} />
             <div style={{ flex: 1, background: GOLD }} />
             <div style={{ flex: 1, background: RED }} />
           </div>
-          <div>
-            <div style={{ color: GOLD, fontSize: '1.2rem', fontWeight: 800, marginBottom: '0.5rem', fontStyle: 'italic' }}>
-              "The moral value foundation network is needed to rebuild a nation unified in oneness and moral integrity."
-            </div>
-            <div style={{ color: GREEN, fontSize: '0.85rem', fontWeight: 700 }}>
-              — Moral Up · #MVFN
-            </div>
-          </div>
+          <p style={{
+            color: GOLD,
+            fontSize: '1.1rem',
+            fontWeight: 700,
+            fontStyle: 'italic',
+            lineHeight: 1.6,
+            marginBottom: '0.75rem',
+          }}>
+            {T('dash_mission')}
+          </p>
+          <span style={{ color: GREEN, fontSize: '0.82rem', fontWeight: 700 }}>— Moral Up · #MVFN</span>
         </div>
+
       </div>
     </div>
   );

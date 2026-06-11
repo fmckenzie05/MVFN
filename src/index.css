@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -5,20 +7,19 @@
 }
 
 :root {
-  --gold: #c8971f;
-  --gold-light: #f0c040;
+  --gold: #C8971F;
+  --gold-light: #FFD100;
   --green-deep: #1a3a2a;
   --green-mid: #2d6a4f;
-  --cream: #fefdf5;
-  --dark: #0f0f1a;
-  --text: #1a1a2e;
-  --text-soft: #4a4a6a;
+  --cream: #F4F2EC;
+  --dark: #0F0F1A;
+  --text: #1A1A2E;
+  --text-soft: #4A5568;
   --white: #ffffff;
   --shadow: 0 4px 24px rgba(0,0,0,0.10);
   --shadow-lg: 0 8px 40px rgba(0,0,0,0.18);
   --radius: 16px;
   --radius-sm: 8px;
-  font-family: 'Segoe UI', 'Georgia', serif;
 }
 
 html {
@@ -26,12 +27,11 @@ html {
 }
 
 body {
-  background: var(--cream);
+  background: #F4F2EC;
   color: var(--text);
   font-size: 16px;
   line-height: 1.7;
-  min-height: 100vh;
-  margin: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 #root {
@@ -46,10 +46,24 @@ button {
   font-family: inherit;
 }
 
-a { text-decoration: none; color: inherit; }
+a {
+  text-decoration: none;
+  color: inherit;
+}
 
-textarea, input { font-family: inherit; }
+textarea, input {
+  font-family: inherit;
+}
 
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #f0ede0; }
-::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F4F2EC;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gold);
+  border-radius: 3px;
+}

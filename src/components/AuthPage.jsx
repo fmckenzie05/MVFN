@@ -5,36 +5,6 @@ const GREEN = '#009B3A';
 const GOLD  = '#FFD100';
 const RED   = '#CC0000';
 
-function TikTokIcon({ size = 20 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path
-        d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.74a8.2 8.2 0 004.79 1.52V6.83a4.85 4.85 0 01-1.02-.14z"
-        fill="currentColor"
-      />
-    </svg>
-  );
-}
-
-function buildTikTokAuthUrl() {
-  const state = Math.random().toString(36).substring(2, 18);
-  sessionStorage.setItem('tiktok_oauth_state', state);
-
-  const clientKey = import.meta.env.VITE_TIKTOK_CLIENT_KEY || 'YOUR_CLIENT_KEY';
-  const redirectUri = import.meta.env.VITE_TIKTOK_REDIRECT_URI
-    || `${window.location.origin}/auth/callback`;
-
-  const params = new URLSearchParams({
-    client_key: clientKey,
-    scope: 'user.info.basic',
-    response_type: 'code',
-    redirect_uri: redirectUri,
-    state,
-  });
-
-  return `https://www.tiktok.com/v2/auth/authorize/?${params.toString()}`;
-}
-
 export default function AuthPage({ lang, setLang, onLogin }) {
   const [view, setView]         = useState('landing'); // landing | signup | login
   const [name, setName]         = useState('');
@@ -43,11 +13,6 @@ export default function AuthPage({ lang, setLang, onLogin }) {
   const [error, setError]       = useState('');
 
   const T = makeT(lang);
-
-  function handleTikTokLogin() {
-    const url = buildTikTokAuthUrl();
-    window.location.href = url;
-  }
 
   function handleEmailSignup(e) {
     e.preventDefault();
@@ -128,17 +93,6 @@ export default function AuthPage({ lang, setLang, onLogin }) {
                   <span className="lang-native">{l.native}</span>
                 </button>
               ))}
-            </div>
-
-            <button className="auth-tiktok-btn" onClick={handleTikTokLogin}>
-              <TikTokIcon size={20} />
-              <span>{T('auth_tiktok_btn')}</span>
-            </button>
-
-            <p className="auth-tiktok-note">{T('auth_tiktok_note')}</p>
-
-            <div className="auth-divider">
-              <span>{T('auth_or')}</span>
             </div>
 
             <button
@@ -240,12 +194,6 @@ export default function AuthPage({ lang, setLang, onLogin }) {
               </button>
             </p>
 
-            <div className="auth-divider"><span>{T('auth_or')}</span></div>
-
-            <button className="auth-tiktok-btn" onClick={handleTikTokLogin}>
-              <TikTokIcon size={18} />
-              <span>{T('auth_tiktok_btn')}</span>
-            </button>
           </>
         )}
 
@@ -295,12 +243,6 @@ export default function AuthPage({ lang, setLang, onLogin }) {
               </button>
             </p>
 
-            <div className="auth-divider"><span>{T('auth_or')}</span></div>
-
-            <button className="auth-tiktok-btn" onClick={handleTikTokLogin}>
-              <TikTokIcon size={18} />
-              <span>{T('auth_tiktok_btn')}</span>
-            </button>
           </>
         )}
       </div>

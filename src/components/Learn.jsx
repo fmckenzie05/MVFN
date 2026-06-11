@@ -1,6 +1,8 @@
 import { chapters } from '../data/chapters';
+import { makeT } from '../i18n/index';
 
-export default function Learn({ completedLessons, setCurrentChapter, setPage }) {
+export default function Learn({ completedLessons, setCurrentChapter, setPage, lang = 'en' }) {
+  const T = makeT(lang);
   const pct = Math.round((completedLessons.size / chapters.length) * 100);
 
   function openLesson(id) {
@@ -12,8 +14,8 @@ export default function Learn({ completedLessons, setCurrentChapter, setPage }) 
   return (
     <div className="page-container">
       <div className="learn-header">
-        <h1>Moral Lessons</h1>
-        <p>20 pillars of moral knowledge — work through each at your own pace.</p>
+        <h1>{T('learn_title')}</h1>
+        <p>{T('learn_sub')}</p>
       </div>
 
       <div className="learn-progress-bar">
@@ -53,7 +55,7 @@ export default function Learn({ completedLessons, setCurrentChapter, setPage }) 
                 <div className="lc-footer">
                   <span className="lc-duration">⏱ {ch.duration}</span>
                   <span className={`lc-status ${done ? 'done' : 'todo'}`}>
-                    {done ? '✓ Completed' : 'Start Lesson'}
+                    {done ? T('learn_completed_label') : T('learn_start')}
                   </span>
                 </div>
               </div>
