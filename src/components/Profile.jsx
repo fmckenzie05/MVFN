@@ -1,16 +1,17 @@
-import { chapters } from '../data/chapters';
-import { currentUser as mockCurrentUser } from '../data/mockData';
+import { courses } from '../data/chapters';
 import { makeT } from '../i18n/index';
 
+const packages = courses[0].packages;
+
 const ACHIEVEMENTS = [
-  { icon: '👑', name: 'Moral Order',     req: 1 },
-  { icon: '🌿', name: 'First Lesson',    req: 1 },
-  { icon: '⚖️', name: '5 Lessons Done', req: 5 },
-  { icon: '🔭', name: '10 Lessons Done', req: 10 },
-  { icon: '🏆', name: 'Halfway There',   req: 10 },
-  { icon: '🌍', name: 'Moral Graduate',  req: 20 },
-  { icon: '💬', name: 'Community Voice', req: 0, special: true },
-  { icon: '🌟', name: 'Moral Leader',    req: 20 },
+  { icon: '👑', name: 'Moral Order',       req: 1 },
+  { icon: '🌿', name: 'First Package',     req: 1 },
+  { icon: '⚖️', name: '5 Packages Done',  req: 5 },
+  { icon: '🔭', name: '10 Packages Done', req: 10 },
+  { icon: '🏆', name: 'Halfway There',     req: 10 },
+  { icon: '🌍', name: 'Course Complete',   req: 20 },
+  { icon: '💬', name: 'Community Voice',   req: 0, special: true },
+  { icon: '🌟', name: 'Moral Leader',      req: 20 },
 ];
 
 const GREEN = '#00C04B';
@@ -20,21 +21,23 @@ const RED   = '#FF5252';
 export default function Profile({ completedLessons, posts, user, lang = 'en', onLogout, setPage }) {
   const T = makeT(lang);
 
-  // Use the passed-in user prop for display; fall back to mockCurrentUser for following stat
-  const displayUser = user || mockCurrentUser;
-  const pct = Math.round((completedLessons.size / chapters.length) * 100);
-  const userPosts = posts.filter(p => p.userId === 0);
+  const displayUser = user || { name: 'User', handle: 'user', avatar: '🌱', bio: '' };
+  const pct = Math.round((completedLessons.size / packages.length) * 100);
+  const userPosts = posts.filter(p => p.user?.id === user?.id);
 
   return (
     <div className="page-container">
 
       {/* Profile Header */}
       <div className="profile-header-card">
-        <div className="profile-avatar-lg">{displayUser.avatar}</div>
+        {displayUser.avatar && displayUser.avatar.startsWith('http')
+          ? <img src={displayUser.avatar} alt="" className="profile-avatar-lg" style={{ width: 80, height: 80, borderRadius: '50%', objectFit: 'cover' }} />
+          : <div className="profile-avatar-lg">{displayUser.avatar || '🌱'}</div>
+        }
         <div style={{ flex: 1 }}>
           <div className="profile-name">{displayUser.name}</div>
           <div className="profile-handle">@{displayUser.handle}</div>
-          <div className="profile-bio">{displayUser.bio || mockCurrentUser.bio}</div>
+          <div className="profile-bio">{displayUser.bio || 'Start your moral journey.'}</div>
           <div className="profile-stats">
             <div className="ps-item">
               <div className="ps-num">{completedLessons.size}</div>
@@ -49,7 +52,7 @@ export default function Profile({ completedLessons, posts, user, lang = 'en', on
               <div className="ps-label">{T('profile_posts')}</div>
             </div>
             <div className="ps-item">
-              <div className="ps-num">{mockCurrentUser.following}</div>
+              <div className="ps-num">0</div>
               <div className="ps-label">{T('profile_following')}</div>
             </div>
           </div>
@@ -111,7 +114,7 @@ export default function Profile({ completedLessons, posts, user, lang = 'en', on
           }} />
         </div>
         <div style={{ fontSize: '0.78rem', color: 'var(--text-3)', marginTop: '0.4rem' }}>
-          {completedLessons.size} of {chapters.length} lessons completed
+          {completedLessons.size} of {packages.length} packages completed
         </div>
       </div>
 
@@ -126,7 +129,7 @@ export default function Profile({ completedLessons, posts, user, lang = 'en', on
               <div className="achievement-name">{a.name}</div>
               {!earned && (
                 <div style={{ fontSize: '0.68rem', color: 'var(--text-3)', marginTop: '0.25rem' }}>
-                  {a.special ? 'Post in community' : `${a.req} lessons needed`}
+                  {a.special ? 'Post in community' : `${a.req} packages needed`}
                 </div>
               )}
               {earned && (
@@ -142,14 +145,14 @@ export default function Profile({ completedLessons, posts, user, lang = 'en', on
       {/* Lessons Progress List */}
       <div className="profile-section-title">{T('profile_lesson_progress')}</div>
       <div className="progress-lessons-list">
-        {chapters.map(ch => {
+        {packages.map(ch => {
           const done = completedLessons.has(ch.id);
           return (
             <div key={ch.id} className="pll-item">
               <span className="pll-icon">{ch.icon}</span>
               <span className="pll-title">{ch.title}</span>
               <span style={{ fontSize: '0.7rem', color: 'var(--text-3)', marginRight: '0.5rem' }}>
-                Ch.{ch.number}
+                Pkg.{ch.number}
               </span>
               <span className={done ? 'pll-done' : 'pll-todo'}>
                 {done ? '✓' : '○'}

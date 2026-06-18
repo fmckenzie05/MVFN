@@ -1276,6 +1276,22 @@ export const chapters = [
   },
 ];
 
+/* ── Course structure ─────────────────────────────────── */
+export const courses = [
+  {
+    id: 'course-1',
+    number: 1,
+    title: 'Moral Value Foundation',
+    subtitle: 'The 20 Pillars of Moral Knowledge',
+    icon: '📖',
+    color: '#1b1b2f',
+    accent: '#d4a017',
+    description:
+      'The foundational course of the Moral Value Foundation Network. Master the 20 moral pillars that form the bedrock of moral living — from Moral Order to Moral Organization. Each package builds upon the last, guiding young minds toward oneness, integrity, and moral purpose.',
+    packages: chapters,
+  },
+];
+
 export const networkConnections = [
   [0,1],[0,2],[0,5],[0,7],
   [1,3],[1,8],[1,17],[1,18],

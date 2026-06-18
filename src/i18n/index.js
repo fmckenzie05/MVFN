@@ -130,14 +130,14 @@ const t = {
     es:  'Una plataforma de enseñanza para el crecimiento moral, la unidad y la comunidad.',
   },
   dash_remaining: {
-    en:  (n) => `${n} lessons remaining on your journey.`,
-    pat: (n) => `${n} lessons left pon yuh journey.`,
-    es:  (n) => `${n} lecciones restantes en tu camino.`,
+    en:  (n) => `${n} packages remaining on your journey.`,
+    pat: (n) => `${n} packages left pon yuh journey.`,
+    es:  (n) => `${n} paquetes restantes en tu camino.`,
   },
   dash_all_done: {
-    en:  'You have completed all 20 lessons!',
-    pat: 'Yu done all 20 lessons! Respect!',
-    es:  '¡Has completado las 20 lecciones!',
+    en:  'You have completed all 20 packages in Course 1!',
+    pat: 'Yu done all 20 packages inna Course 1! Respect!',
+    es:  '¡Has completado los 20 paquetes del Curso 1!',
   },
   dash_continue_learning: {
     en:  '📖 Continue Learning',
@@ -158,6 +158,11 @@ const t = {
     en:  'Lessons Completed',
     pat: 'Lessons Done',
     es:  'Lecciones Completadas',
+  },
+  dash_packages_done: {
+    en:  'Packages Completed',
+    pat: 'Packages Done',
+    es:  'Paquetes Completados',
   },
   dash_progress: {
     en:  'Overall Progress',
@@ -180,9 +185,9 @@ const t = {
     es:  'Próxima Lección',
   },
   dash_pillars: {
-    en:  '🌍 All 20 Moral Pillars',
-    pat: '🌍 All 20 Moral Pillars',
-    es:  '🌍 Los 20 Pilares Morales',
+    en:  '📖 Course 1 Packages',
+    pat: '📖 Course 1 Packages',
+    es:  '📖 Paquetes del Curso 1',
   },
   dash_highlights: {
     en:  '💬 Community Highlights',
@@ -222,14 +227,34 @@ const t = {
     es:  'Completo',
   },
   learn_start: {
-    en:  'Start Lesson',
-    pat: 'Start di Lesson',
-    es:  'Iniciar Lección',
+    en:  'Start Package',
+    pat: 'Start di Package',
+    es:  'Iniciar Paquete',
   },
   learn_completed_label: {
     en:  '✓ Completed',
     pat: '✓ Done',
     es:  '✓ Completado',
+  },
+  learn_course_label: {
+    en:  (n) => `Course ${n}`,
+    pat: (n) => `Course ${n}`,
+    es:  (n) => `Curso ${n}`,
+  },
+  learn_packages: {
+    en:  'Packages',
+    pat: 'Packages',
+    es:  'Paquetes',
+  },
+  learn_package_num: {
+    en:  (n) => `Package ${n}`,
+    pat: (n) => `Package ${n}`,
+    es:  (n) => `Paquete ${n}`,
+  },
+  learn_curriculum: {
+    en:  'Course Curriculum',
+    pat: 'Course Curriculum',
+    es:  'Plan de Estudios',
   },
 
   // ── COMMUNITY ─────────────────────────────────────────
@@ -291,14 +316,14 @@ const t = {
 
   // ── LESSON ────────────────────────────────────────────
   lesson_back: {
-    en:  '← Back to Lessons',
-    pat: '← Back to Lessons',
-    es:  '← Volver a Lecciones',
+    en:  '← Back to Course',
+    pat: '← Back to Course',
+    es:  '← Volver al Curso',
   },
   lesson_chapter_of: {
-    en:  (n, t) => `Chapter ${n} of ${t}`,
-    pat: (n, t) => `Chapter ${n} of ${t}`,
-    es:  (n, t) => `Capítulo ${n} de ${t}`,
+    en:  (n, t) => `Package ${n} of ${t}`,
+    pat: (n, t) => `Package ${n} of ${t}`,
+    es:  (n, t) => `Paquete ${n} de ${t}`,
   },
   lesson_knowledge_check: {
     en:  '📝 Knowledge Check',
@@ -316,9 +341,9 @@ const t = {
     es:  '✓ ¡Excelente trabajo! Respondiste todo correctamente.',
   },
   lesson_incorrect: {
-    en:  '✗ Some answers need review. Read back through the lesson and try again.',
-    pat: '✗ Some answers wrong. Read back through di lesson and try again.',
-    es:  '✗ Algunas respuestas necesitan revisión. Vuelve a leer la lección e inténtalo de nuevo.',
+    en:  '✗ Some answers need review. Read back through the package and try again.',
+    pat: '✗ Some answers wrong. Read back through di package and try again.',
+    es:  '✗ Algunas respuestas necesitan revisión. Vuelve a leer el paquete e inténtalo de nuevo.',
   },
   lesson_retry: {
     en:  '↺ Retry Quiz',
@@ -341,9 +366,9 @@ const t = {
     es:  '💬 Compartir con la Comunidad',
   },
   lesson_mark_complete: {
-    en:  '✓ Mark Lesson Complete',
-    pat: '✓ Mark Lesson Done',
-    es:  '✓ Marcar Lección Completada',
+    en:  '✓ Mark Package Complete',
+    pat: '✓ Mark Package Done',
+    es:  '✓ Marcar Paquete Completado',
   },
   lesson_shared: {
     en:  '✓ Your reflection has been shared to the community!',
@@ -351,9 +376,9 @@ const t = {
     es:  '✓ ¡Tu reflexión ha sido compartida con la comunidad!',
   },
   lesson_complete_banner: {
-    en:  '✓ You have completed this lesson. Keep going!',
-    pat: '✓ Yu done dis lesson. Keep it moving!',
-    es:  '✓ Has completado esta lección. ¡Sigue adelante!',
+    en:  '✓ You have completed this package. Keep going!',
+    pat: '✓ Yu done dis package. Keep it moving!',
+    es:  '✓ Has completado este paquete. ¡Sigue adelante!',
   },
   lesson_prev: {
     en:  '← Previous',
@@ -368,9 +393,9 @@ const t = {
 
   // ── PROFILE ───────────────────────────────────────────
   profile_lessons: {
-    en:  'Lessons',
-    pat: 'Lessons',
-    es:  'Lecciones',
+    en:  'Packages',
+    pat: 'Packages',
+    es:  'Paquetes',
   },
   profile_progress: {
     en:  'Progress',
@@ -398,9 +423,9 @@ const t = {
     es:  '🏅 Logros Morales',
   },
   profile_lesson_progress: {
-    en:  '📚 Lesson Progress',
-    pat: '📚 Lesson Progress',
-    es:  '📚 Progreso de Lecciones',
+    en:  '📚 Package Progress',
+    pat: '📚 Package Progress',
+    es:  '📚 Progreso de Paquetes',
   },
   profile_your_posts: {
     en:  '💬 Your Community Posts',

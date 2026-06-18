@@ -1,11 +1,13 @@
-import { chapters } from '../data/chapters';
+import { courses } from '../data/chapters';
 import { makeT } from '../i18n/index';
 
 export default function Learn({ completedLessons, setCurrentChapter, setPage, lang = 'en' }) {
   const T = makeT(lang);
-  const pct = Math.round((completedLessons.size / chapters.length) * 100);
+  const course = courses[0];
+  const packages = course.packages;
+  const pct = Math.round((completedLessons.size / packages.length) * 100);
 
-  function openLesson(id) {
+  function openPackage(id) {
     setCurrentChapter(id);
     setPage('lesson');
     window.scrollTo({ top: 0 });
@@ -13,31 +15,51 @@ export default function Learn({ completedLessons, setCurrentChapter, setPage, la
 
   return (
     <div className="page-container">
-      <div className="learn-header">
-        <h1>{T('learn_title')}</h1>
-        <p>{T('learn_sub')}</p>
+      {/* Course hero banner */}
+      <div
+        className="course-hero"
+        style={{ background: `linear-gradient(135deg, ${course.color}, ${course.color}cc)` }}
+      >
+        <div className="course-hero-badge">
+          <span className="course-hero-icon">{course.icon}</span>
+          <span className="course-hero-label">{T('learn_course_label', course.number)}</span>
+        </div>
+        <h1 className="course-hero-title">{course.title}</h1>
+        <p className="course-hero-subtitle">{course.subtitle}</p>
+        <p className="course-hero-desc">{course.description}</p>
+        <div className="course-hero-meta">
+          <span className="course-meta-tag">{packages.length} {T('learn_packages')}</span>
+          <span className="course-meta-tag">{completedLessons.size} {T('learn_complete')}</span>
+        </div>
       </div>
 
+      {/* Course progress */}
       <div className="learn-progress-bar">
         <div className="lpb-track">
           <div className="lpb-fill" style={{ width: `${pct}%` }} />
         </div>
         <div className="lpb-label">
-          {completedLessons.size}/{chapters.length} Complete · {pct}%
+          {completedLessons.size}/{packages.length} {T('learn_packages')} · {pct}%
         </div>
       </div>
 
+      {/* Section heading */}
+      <div className="learn-section-heading">
+        <h2>{T('learn_curriculum')}</h2>
+      </div>
+
+      {/* Package grid */}
       <div className="lessons-grid">
-        {chapters.map(ch => {
+        {packages.map(ch => {
           const done = completedLessons.has(ch.id);
           return (
             <div
               key={ch.id}
               className={`lesson-card${done ? ' completed' : ''}`}
-              onClick={() => openLesson(ch.id)}
+              onClick={() => openPackage(ch.id)}
               role="button"
               tabIndex={0}
-              onKeyDown={e => e.key === 'Enter' && openLesson(ch.id)}
+              onKeyDown={e => e.key === 'Enter' && openPackage(ch.id)}
             >
               <div className="lc-bar" style={{ background: ch.accent }} />
               <div className="lc-body">
@@ -46,7 +68,7 @@ export default function Learn({ completedLessons, setCurrentChapter, setPage, la
                     {ch.icon}
                   </div>
                   <div>
-                    <div className="lc-num" style={{ color: ch.accent }}>Chapter {ch.number}</div>
+                    <div className="lc-num" style={{ color: ch.accent }}>{T('learn_package_num', ch.number)}</div>
                     <div className="lc-title">{ch.title}</div>
                     <div className="lc-subtitle">{ch.subtitle}</div>
                   </div>

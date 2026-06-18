@@ -1,16 +1,18 @@
-import { chapters } from '../data/chapters';
-import { mockPosts, mockUsers } from '../data/mockData';
+import { courses } from '../data/chapters';
 import { makeT } from '../i18n/index';
 
 const GREEN = '#00C04B';
 const GOLD  = '#E8B23A';
 const RED   = '#FF5252';
 
-export default function Dashboard({ completedLessons, setPage, setCurrentChapter, lang = 'en' }) {
+const course = courses[0];
+const packages = course.packages;
+
+export default function Dashboard({ completedLessons, setPage, setCurrentChapter, lang = 'en', posts = [] }) {
   const T = makeT(lang);
-  const pct = Math.round((completedLessons.size / chapters.length) * 100);
-  const nextLesson = chapters.find(c => !completedLessons.has(c.id)) || chapters[0];
-  const recentPosts = mockPosts.slice(0, 3);
+  const pct = Math.round((completedLessons.size / packages.length) * 100);
+  const nextLesson = packages.find(c => !completedLessons.has(c.id)) || packages[0];
+  const recentPosts = posts.slice(0, 3);
 
   function goLesson(ch) {
     setCurrentChapter(ch.id);
@@ -52,14 +54,14 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
         <div className="dash-grid">
           <div className="dash-stat-card" style={{ borderTop: `3px solid ${GREEN}` }}>
             <div className="ds-number" style={{ color: GREEN }}>{completedLessons.size}</div>
-            <div className="ds-label">{T('dash_lessons_done')}</div>
+            <div className="ds-label">{T('dash_packages_done')}</div>
           </div>
           <div className="dash-stat-card" style={{ borderTop: `3px solid ${GOLD}` }}>
             <div className="ds-number" style={{ color: GOLD }}>{pct}%</div>
             <div className="ds-label">{T('dash_progress')}</div>
           </div>
           <div className="dash-stat-card" style={{ borderTop: `3px solid ${RED}` }}>
-            <div className="ds-number" style={{ color: RED }}>{mockPosts.length}</div>
+            <div className="ds-number" style={{ color: RED }}>{posts.length}</div>
             <div className="ds-label">{T('dash_posts')}</div>
           </div>
         </div>
@@ -88,13 +90,13 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: '0.4rem' }}>
             <span style={{ fontSize: '0.72rem', color: GREEN, fontWeight: 700 }}>● Start</span>
-            <span style={{ fontSize: '0.72rem', color: 'var(--text-3)' }}>{completedLessons.size} of {chapters.length}</span>
+            <span style={{ fontSize: '0.72rem', color: 'var(--text-3)' }}>{completedLessons.size} of {packages.length}</span>
             <span style={{ fontSize: '0.72rem', color: RED, fontWeight: 700 }}>Goal ●</span>
           </div>
         </div>
 
         {/* Continue learning */}
-        <div className="dash-section-title">Continue Learning</div>
+        <div className="dash-section-title">Continue Course 1</div>
         <div
           className="dash-continue-card"
           onClick={() => goLesson(nextLesson)}
@@ -107,22 +109,22 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
             {nextLesson.icon}
           </div>
           <div className="dcc-meta">
-            <div className="dcc-label" style={{ color: GREEN }}>Next Lesson · Ch.{nextLesson.number}</div>
+            <div className="dcc-label" style={{ color: GREEN }}>Next Package · Pkg.{nextLesson.number}</div>
             <div className="dcc-title">{nextLesson.title}</div>
             <div className="dcc-sub">{nextLesson.subtitle} · {nextLesson.duration}</div>
           </div>
           <button className="dcc-btn">{T('dash_start')} →</button>
         </div>
 
-        {/* 20 Pillars */}
-        <div className="dash-section-title" style={{ marginTop: '1.5rem' }}>All 20 Moral Pillars</div>
+        {/* Course 1 Packages */}
+        <div className="dash-section-title" style={{ marginTop: '1.5rem' }}>Course 1 — {course.title}</div>
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(135px, 1fr))',
           gap: '0.65rem',
           marginBottom: '2.5rem',
         }}>
-          {chapters.map((ch, i) => {
+          {packages.map((ch, i) => {
             const done = completedLessons.has(ch.id);
             const accent = i % 3 === 0 ? GREEN : i % 3 === 1 ? GOLD : RED;
             return (
@@ -154,7 +156,7 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
               >
                 <span style={{ fontSize: '1.1rem' }}>{ch.icon}</span>
                 <div>
-                  <div style={{ fontSize: '0.6rem', color: accent, fontWeight: 700 }}>Ch.{ch.number}</div>
+                  <div style={{ fontSize: '0.6rem', color: accent, fontWeight: 700 }}>Pkg.{ch.number}</div>
                   <div style={{ fontSize: '0.76rem', fontWeight: 700, color: 'var(--text-1)', lineHeight: 1.2 }}>
                     {ch.title.replace('Moral ', '')}
                   </div>
@@ -191,16 +193,15 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem', marginBottom: '3rem' }}>
-          {recentPosts.map((post, i) => {
-            const user = mockUsers.find(u => u.id === post.userId);
+          {recentPosts.length > 0 ? recentPosts.map((post, i) => {
             const accent = i % 3 === 0 ? GREEN : i % 3 === 1 ? GOLD : RED;
             return (
               <div key={post.id} className="post-card" style={{ borderLeft: `3px solid ${accent}` }}>
                 <div className="post-header">
-                  <div className="post-avatar">{user?.avatar}</div>
+                  <div className="post-avatar">{post.user?.avatar}</div>
                   <div className="post-user-info">
-                    <div className="post-name">{user?.name}</div>
-                    <div className="post-handle">@{user?.handle}</div>
+                    <div className="post-name">{post.user?.name}</div>
+                    <div className="post-handle">@{post.user?.handle}</div>
                   </div>
                   <span
                     className="post-chapter-tag"
@@ -209,7 +210,7 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
                     #{post.chapterTitle.replace(/ /g, '')}
                   </span>
                 </div>
-                <p className="post-text">{post.text.slice(0, 160)}…</p>
+                <p className="post-text">{post.text.slice(0, 160)}{post.text.length > 160 ? '…' : ''}</p>
                 <div className="post-actions">
                   <span className="post-action-btn">❤ {post.likes}</span>
                   <span className="post-action-btn">💬 {post.comments.length}</span>
@@ -217,7 +218,11 @@ export default function Dashboard({ completedLessons, setPage, setCurrentChapter
                 </div>
               </div>
             );
-          })}
+          }) : (
+            <div style={{ textAlign: 'center', padding: '2rem', color: 'var(--text-3)', fontSize: '0.9rem' }}>
+              No community posts yet. Be the first to share a reflection!
+            </div>
+          )}
         </div>
 
         {/* Mission quote */}

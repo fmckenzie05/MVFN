@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { chapters } from '../data/chapters';
+import { courses } from '../data/chapters';
+
+const course = courses[0];
+const packages = course.packages;
 
 function SectionBlock({ section }) {
   const cls = {
@@ -81,7 +84,7 @@ function QuizBlock({ quiz, onPass }) {
         <div className={`quiz-result ${passed ? 'pass' : 'fail'}`}>
           {passed
             ? '✓ Great work! You answered everything correctly.'
-            : '✗ Some answers need review. Read back through the lesson and try again.'}
+            : '✗ Some answers need review. Read back through the package and try again.'}
           {!passed && (
             <button onClick={retry} style={{ display: 'block', marginTop: '0.6rem', background: 'none', color: '#FF5252', fontWeight: 700, cursor: 'pointer', border: 'none', fontSize: '0.85rem' }}>
               ↺ Retry Quiz
@@ -94,10 +97,10 @@ function QuizBlock({ quiz, onPass }) {
 }
 
 export default function LessonView({ chapterId, setPage, setCurrentChapter, completedLessons, markComplete, onShareToFeed }) {
-  const idx     = chapters.findIndex(c => c.id === chapterId);
-  const chapter = chapters[idx];
-  const prev    = chapters[idx - 1] || null;
-  const next    = chapters[idx + 1] || null;
+  const idx     = packages.findIndex(c => c.id === chapterId);
+  const pkg     = packages[idx];
+  const prev    = packages[idx - 1] || null;
+  const next    = packages[idx + 1] || null;
 
   const [quizPassed,    setQuizPassed]    = useState(completedLessons.has(chapterId));
   const [reflection,    setReflection]    = useState('');
@@ -105,19 +108,19 @@ export default function LessonView({ chapterId, setPage, setCurrentChapter, comp
 
   const isComplete = completedLessons.has(chapterId);
 
-  if (!chapter) return null;
+  if (!pkg) return null;
 
   function handleShare() {
     if (!reflection.trim()) return;
     onShareToFeed({
-      chapterId: chapter.id,
-      chapterTitle: chapter.title,
+      chapterId: pkg.id,
+      chapterTitle: pkg.title,
       text: reflection,
     });
     setShared(true);
   }
 
-  function goChapter(id) {
+  function goPackage(id) {
     setCurrentChapter(id);
     window.scrollTo({ top: 0 });
   }
@@ -126,20 +129,20 @@ export default function LessonView({ chapterId, setPage, setCurrentChapter, comp
     <div className="page-container">
       <div className="lesson-view">
         <button className="lesson-back" onClick={() => setPage('learn')}>
-          ← Back to Lessons
+          ← Back to Course
         </button>
 
         {/* Hero */}
         <div
           className="lesson-hero"
-          data-icon={chapter.icon}
-          style={{ background: `linear-gradient(135deg, ${chapter.color}, ${chapter.color}cc)` }}
+          data-icon={pkg.icon}
+          style={{ background: `linear-gradient(135deg, ${pkg.color}, ${pkg.color}cc)` }}
         >
-          <div className="lh-num">Chapter {chapter.number} of {chapters.length}</div>
-          <h1 className="lh-title">{chapter.title}</h1>
-          <div className="lh-subtitle">{chapter.subtitle}</div>
+          <div className="lh-num">Package {pkg.number} of {packages.length}</div>
+          <h1 className="lh-title">{pkg.title}</h1>
+          <div className="lh-subtitle">{pkg.subtitle}</div>
           <div className="lh-meta">
-            <span className="lh-tag">⏱ {chapter.duration}</span>
+            <span className="lh-tag">⏱ {pkg.duration}</span>
             {isComplete && <span className="lh-tag">✓ Completed</span>}
           </div>
         </div>
@@ -147,23 +150,23 @@ export default function LessonView({ chapterId, setPage, setCurrentChapter, comp
         {/* Complete banner */}
         {isComplete && (
           <div className="lesson-complete-banner">
-            ✓ You have completed this lesson. Keep going!
+            ✓ You have completed this package. Keep going!
           </div>
         )}
 
         {/* Overview */}
-        <div className="lesson-overview-box">{chapter.overview}</div>
+        <div className="lesson-overview-box">{pkg.overview}</div>
 
         {/* Sections */}
-        {chapter.sections.map((s, i) => <SectionBlock key={i} section={s} />)}
+        {pkg.sections.map((s, i) => <SectionBlock key={i} section={s} />)}
 
         {/* Quiz */}
-        <QuizBlock quiz={chapter.quiz} onPass={() => setQuizPassed(true)} />
+        <QuizBlock quiz={pkg.quiz} onPass={() => setQuizPassed(true)} />
 
         {/* Reflection */}
         <div className="reflection-section">
           <h3>💭 Moral Reflection</h3>
-          <p className="reflection-prompt">{chapter.reflection}</p>
+          <p className="reflection-prompt">{pkg.reflection}</p>
           {shared ? (
             <div style={{ color: '#E8B23A', fontWeight: 700, padding: '0.75rem 0' }}>
               ✓ Your reflection has been shared to the community!
@@ -185,9 +188,9 @@ export default function LessonView({ chapterId, setPage, setCurrentChapter, comp
             {quizPassed && !isComplete && (
               <button
                 className="btn-complete-lesson"
-                onClick={() => markComplete(chapter.id)}
+                onClick={() => markComplete(pkg.id)}
               >
-                ✓ Mark Lesson Complete
+                ✓ Mark Package Complete
               </button>
             )}
           </div>
@@ -196,13 +199,13 @@ export default function LessonView({ chapterId, setPage, setCurrentChapter, comp
         {/* Prev / Next */}
         <div className="lesson-nav-row">
           {prev ? (
-            <button className="lesson-nav-btn" onClick={() => goChapter(prev.id)}>
+            <button className="lesson-nav-btn" onClick={() => goPackage(prev.id)}>
               <div className="lnb-label">← Previous</div>
               <div className="lnb-title">{prev.title}</div>
             </button>
           ) : <div />}
           {next ? (
-            <button className="lesson-nav-btn next" onClick={() => goChapter(next.id)}>
+            <button className="lesson-nav-btn next" onClick={() => goPackage(next.id)}>
               <div className="lnb-label">Next →</div>
               <div className="lnb-title">{next.title}</div>
             </button>

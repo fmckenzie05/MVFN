@@ -1,5 +1,7 @@
-import { chapters } from '../data/chapters';
+import { courses } from '../data/chapters';
 import { LANGUAGES, makeT } from '../i18n/index';
+
+const packages = courses[0].packages;
 
 /* ── SVG Icon Components ──────────────────────────────── */
 function GridIcon() {
@@ -75,7 +77,7 @@ function LockIcon() {
 /* ── Sidebar Component ────────────────────────────────── */
 export default function Sidebar({ page, setPage, completedLessons, lang, setLang, user, onLogout }) {
   const T = makeT(lang);
-  const pct = Math.round((completedLessons.size / chapters.length) * 100);
+  const pct = Math.round((completedLessons.size / packages.length) * 100);
 
   const navItems = [
     { id: 'dashboard', Icon: GridIcon,    label: T('nav_dashboard') },
@@ -118,7 +120,7 @@ export default function Sidebar({ page, setPage, completedLessons, lang, setLang
         <div className="sp-bar-wrap">
           <div className="sp-bar-fill" style={{ width: `${pct}%` }} />
         </div>
-        <div className="sp-text">{completedLessons.size} / {chapters.length} lessons</div>
+        <div className="sp-text">Course 1: {completedLessons.size} / {packages.length} packages</div>
       </div>
 
       {/* Language switcher */}
@@ -144,9 +146,10 @@ export default function Sidebar({ page, setPage, completedLessons, lang, setLang
       {user && (
         <div className="sidebar-footer">
           <div className="sidebar-user-row">
-            <div className="user-avatar" style={{ width: 32, height: 32, fontSize: '1rem', flexShrink: 0 }}>
-              {user.avatar}
-            </div>
+            {user.avatar && user.avatar.startsWith('http')
+              ? <img src={user.avatar} alt="" className="user-avatar" style={{ width: 32, height: 32, borderRadius: '50%', flexShrink: 0 }} />
+              : <div className="user-avatar" style={{ width: 32, height: 32, fontSize: '1rem', flexShrink: 0 }}>{user.avatar || '🌱'}</div>
+            }
             <div className="sidebar-user-info">
               <div className="sidebar-user-name">{user.name}</div>
               <div className="sidebar-user-handle">@{user.handle}</div>

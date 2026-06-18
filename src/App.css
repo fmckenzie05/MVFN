@@ -643,21 +643,92 @@
 }
 
 /* ── LEARN PAGE ─────────────────────────────────────────── */
-.learn-header {
+/* ── Course Hero Banner ──────────────────────────────────── */
+.course-hero {
+  border-radius: var(--r-xl);
+  padding: 2.25rem 2rem 2rem;
   margin-bottom: 1.75rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: var(--shadow-md);
 }
 
-.learn-header h1 {
+.course-hero::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--grad-tri);
+}
+
+.course-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.08);
+  border-radius: var(--r-full);
+  padding: 0.35rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.course-hero-icon { font-size: 1.15rem; }
+.course-hero-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.course-hero-title {
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-size: clamp(1.6rem, 3.5vw, 2.4rem);
   font-weight: 700;
   color: var(--text-1);
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.35rem;
+  line-height: 1.2;
 }
 
-.learn-header p {
+.course-hero-subtitle {
+  color: var(--gold);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 0.85rem;
+}
+
+.course-hero-desc {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  max-width: 680px;
+  margin-bottom: 1.1rem;
+}
+
+.course-hero-meta {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.course-meta-tag {
+  background: rgba(255,255,255,0.08);
+  border-radius: var(--r-full);
+  padding: 0.3rem 0.85rem;
+  font-size: 0.78rem;
+  font-weight: 600;
   color: var(--text-2);
-  font-size: 0.95rem;
+}
+
+.learn-section-heading {
+  margin-bottom: 1.25rem;
+}
+
+.learn-section-heading h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-1);
+  letter-spacing: 0.02em;
 }
 
 .learn-progress-bar {
@@ -2381,6 +2452,44 @@
 
 .auth-back-btn:hover {
   color: var(--text-2);
+}
+
+.auth-input {
+  background: rgba(255,255,255,0.04);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 0.8rem 1rem;
+  color: var(--text-1);
+  font-size: 16px;
+  transition: border-color 0.18s, box-shadow 0.18s;
+  width: 100%;
+  min-height: 48px;
+  box-sizing: border-box;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(232,178,58,0.14);
+}
+
+.auth-input::placeholder {
+  color: var(--text-3);
+}
+
+.auth-link-btn {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-weight: 700;
+  cursor: pointer;
+  font-size: inherit;
+  transition: opacity 0.15s;
+  padding: 0;
+}
+
+.auth-link-btn:hover {
+  opacity: 0.75;
 }
 
 /* ── RESPONSIVE ─────────────────────────────────────────── */

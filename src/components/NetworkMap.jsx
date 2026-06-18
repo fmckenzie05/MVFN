@@ -1,4 +1,6 @@
-import { chapters, networkConnections } from '../data/chapters';
+import { courses, networkConnections } from '../data/chapters';
+
+const packages = courses[0].packages;
 
 const CX = 350, CY = 350, R = 275;
 
@@ -8,8 +10,8 @@ function pos(i, total) {
 }
 
 export default function NetworkMap({ setPage, setCurrentChapter }) {
-  const total = chapters.length;
-  const positions = chapters.map((_, i) => pos(i, total));
+  const total = packages.length;
+  const positions = packages.map((_, i) => pos(i, total));
 
   function open(id) {
     setCurrentChapter(id);
@@ -21,7 +23,7 @@ export default function NetworkMap({ setPage, setCurrentChapter }) {
     <div className="page-container">
       <div className="network-page">
         <h1>The Moral Network</h1>
-        <p>All 20 moral pillars connected — click any node to go to that lesson.</p>
+        <p>All 20 moral pillars connected — click any node to open that package.</p>
 
         <div className="network-svg-wrap">
           <svg viewBox="0 0 700 700" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +44,7 @@ export default function NetworkMap({ setPage, setCurrentChapter }) {
             ))}
 
             {/* Spokes */}
-            {chapters.map((_, i) => (
+            {packages.map((_, i) => (
               <line key={`sp${i}`}
                 x1={CX} y1={CY}
                 x2={positions[i].x} y2={positions[i].y}
@@ -51,7 +53,7 @@ export default function NetworkMap({ setPage, setCurrentChapter }) {
             ))}
 
             {/* Nodes */}
-            {chapters.map((ch, i) => {
+            {packages.map((ch, i) => {
               const p = positions[i];
               const la = (2 * Math.PI * i) / total - Math.PI / 2;
               const lR = R + 34;
@@ -81,7 +83,7 @@ export default function NetworkMap({ setPage, setCurrentChapter }) {
           gridTemplateColumns: 'repeat(auto-fill, minmax(175px, 1fr))',
           gap: '0.65rem',
         }}>
-          {chapters.map(ch => (
+          {packages.map(ch => (
             <button
               key={ch.id}
               onClick={() => open(ch.id)}
@@ -102,7 +104,7 @@ export default function NetworkMap({ setPage, setCurrentChapter }) {
             >
               <span style={{ fontSize: '1.15rem' }}>{ch.icon}</span>
               <div>
-                <div style={{ fontSize: '0.62rem', color: ch.accent, fontWeight: 700 }}>Ch.{ch.number}</div>
+                <div style={{ fontSize: '0.62rem', color: ch.accent, fontWeight: 700 }}>Pkg.{ch.number}</div>
                 <div style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-1)', lineHeight: 1.2 }}>{ch.title}</div>
               </div>
             </button>

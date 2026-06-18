@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { supabase } from './lib/supabase';
+import { getProfile, getProgress, markChapterComplete, signOut, createPost } from './lib/db';
 import './App.css';
 
 import Sidebar    from './components/Sidebar';
@@ -12,14 +14,15 @@ import AuthPage   from './components/AuthPage';
 import TermsOfService from './components/TermsOfService';
 import PrivacyPolicy from './components/PrivacyPolicy';
 
-import { mockPosts } from './data/mockData';
-import { chapters }  from './data/chapters';
+import { courses }  from './data/chapters';
 import { LANGUAGES, makeT } from './i18n/index';
+
+const packages = courses[0].packages;
 
 const PAGE_TITLES = {
   dashboard: 'Dashboard',
-  learn:     'Learn',
-  lesson:    'Lesson',
+  learn:     'Course 1',
+  lesson:    'Package',
   community: 'Community',
   network:   'Network',
   profile:   'Profile',
@@ -28,18 +31,40 @@ const PAGE_TITLES = {
 };
 
 export default function App() {
-  // ── Auth state ─────────────────────────────────────────
-  const [user, setUser] = useState(() => {
-    try {
-      const stored = JSON.parse(localStorage.getItem('mvfn_user'));
-      // Reject any leftover guest sessions — guest login no longer exists
-      if (stored?.provider === 'guest') {
-        localStorage.removeItem('mvfn_user');
-        return null;
+  // ── Supabase auth session ─────────────────────────────
+  const [session, setSession] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setLoading(false);
+    });
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      (_event, session) => {
+        setSession(session);
+        if (!session) setUser(null);
       }
-      return stored || null;
-    } catch { return null; }
-  });
+    );
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  // ── Load profile from DB when session changes ─────────
+  useEffect(() => {
+    if (!session?.user) return;
+    let cancelled = false;
+
+    async function loadUser() {
+      const { data } = await getProfile(session.user.id);
+      if (!cancelled && data) setUser(data);
+    }
+    loadUser();
+
+    return () => { cancelled = true; };
+  }, [session]);
 
   // ── Language ───────────────────────────────────────────
   const [lang, setLangState] = useState(() => {
@@ -53,25 +78,18 @@ export default function App() {
 
   const T = makeT(lang);
 
-  function handleLogin(userData) {
-    const u = { ...userData, lang: userData.lang || lang };
-    setUser(u);
-    if (u.lang) setLang(u.lang);
-    localStorage.setItem('mvfn_user', JSON.stringify(u));
-  }
-
-  function handleLogout() {
-    setUser(null);
-    localStorage.removeItem('mvfn_user');
-    setPage('dashboard');
+  async function handleLogout() {
+    localStorage.removeItem('mvfn_completed');
+    localStorage.removeItem('mvfn_lang');
+    await signOut();
   }
 
   // ── App navigation ─────────────────────────────────────
   const [page,           setPage]           = useState('dashboard');
   const [currentChapter, setCurrentChapter] = useState(null);
-  const [posts,          setPosts]          = useState(mockPosts);
+  const [posts,          setPosts]          = useState([]);
 
-  // ── Progress (persisted) ───────────────────────────────
+  // ── Progress (Supabase + localStorage cache) ───────────
   const [completedLessons, setCompletedLessons] = useState(() => {
     try {
       const s = localStorage.getItem('mvfn_completed');
@@ -79,12 +97,28 @@ export default function App() {
     } catch { return new Set(); }
   });
 
+  // Load from DB when session available
+  useEffect(() => {
+    if (!session?.user) return;
+    getProgress(session.user.id).then(({ data }) => {
+      if (data) {
+        const ids = data.map(r => r.chapter_id);
+        setCompletedLessons(new Set(ids));
+        localStorage.setItem('mvfn_completed', JSON.stringify(ids));
+      }
+    });
+  }, [session]);
+
+  // Sync localStorage cache when completedLessons changes
   useEffect(() => {
     localStorage.setItem('mvfn_completed', JSON.stringify([...completedLessons]));
   }, [completedLessons]);
 
-  function markComplete(id) {
+  async function markComplete(id) {
     setCompletedLessons(prev => new Set([...prev, id]));
+    if (session?.user) {
+      await markChapterComplete(session.user.id, id);
+    }
   }
 
   function navigate(p) {
@@ -92,29 +126,47 @@ export default function App() {
     window.scrollTo({ top: 0 });
   }
 
-  function handleShareToFeed({ chapterId, chapterTitle, text }) {
-    const newPost = {
-      id: Date.now(),
-      userId: 0,
-      chapterId,
-      chapterTitle,
-      text,
-      likes: 0,
-      liked: false,
-      time: 'Just now',
-      comments: [],
-    };
-    setPosts(prev => [newPost, ...prev]);
+  async function handleShareToFeed({ chapterId, chapterTitle, text }) {
+    if (!session?.user || !user) return;
+    const { data } = await createPost(session.user.id, chapterId, chapterTitle, text);
+    if (data) {
+      const newPost = {
+        id: data.id,
+        user: { id: user.id, name: user.name, handle: user.handle, avatar: user.avatar },
+        chapterId: data.chapter_id,
+        chapterTitle: data.chapter_title,
+        text: data.text,
+        likes: 0,
+        liked: false,
+        time: 'Just now',
+        comments: [],
+      };
+      setPosts(prev => [newPost, ...prev]);
+    }
+  }
+
+  // ── Loading state ──────────────────────────────────────
+  if (loading) {
+    return (
+      <div className="auth-root" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh' }}>
+        <div className="auth-card" style={{ textAlign: 'center', padding: '3rem' }}>
+          <div className="auth-logo-ring" style={{ margin: '0 auto 1rem' }}>
+            <span className="auth-logo-text">MVFN</span>
+          </div>
+          <p style={{ color: '#b0b0b0' }}>Loading...</p>
+        </div>
+      </div>
+    );
   }
 
   // ── Not authenticated → show auth page ────────────────
-  if (!user) {
-    return <AuthPage lang={lang} setLang={setLang} onLogin={handleLogin} />;
+  if (!session) {
+    return <AuthPage lang={lang} setLang={setLang} />;
   }
 
   // ── Authenticated app ──────────────────────────────────
   const topTitle = page === 'lesson' && currentChapter
-    ? chapters.find(c => c.id === currentChapter)?.title || 'Lesson'
+    ? packages.find(c => c.id === currentChapter)?.title || 'Package'
     : PAGE_TITLES[page] || '';
 
   return (
@@ -158,8 +210,11 @@ export default function App() {
               tabIndex={0}
               onKeyDown={e => e.key === 'Enter' && navigate('profile')}
             >
-              <div className="user-avatar">{user.avatar}</div>
-              <span className="user-name">@{user.handle}</span>
+              {user?.avatar && user.avatar.startsWith('http')
+                ? <img src={user.avatar} alt="" className="user-avatar" style={{ width: 32, height: 32, borderRadius: '50%' }} />
+                : <div className="user-avatar">{user?.avatar || '🌱'}</div>
+              }
+              <span className="user-name">@{user?.handle || '...'}</span>
             </div>
           </div>
         </div>
@@ -170,6 +225,7 @@ export default function App() {
             setPage={navigate}
             setCurrentChapter={id => { setCurrentChapter(id); navigate('lesson'); }}
             lang={lang}
+            posts={posts}
           />
         )}
 
@@ -195,7 +251,13 @@ export default function App() {
         )}
 
         {page === 'community' && (
-          <Community posts={posts} setPosts={setPosts} lang={lang} />
+          <Community
+            posts={posts}
+            setPosts={setPosts}
+            user={user}
+            session={session}
+            lang={lang}
+          />
         )}
 
         {page === 'network' && (
